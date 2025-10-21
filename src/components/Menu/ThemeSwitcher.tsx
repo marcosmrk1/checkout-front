@@ -1,7 +1,7 @@
 'use client'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { useId } from 'react'
+import { useEffect, useId, useState } from 'react'
 
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme()
@@ -24,19 +24,19 @@ const ThemeSwitcher = () => {
         />
         <label
           htmlFor={id}
-          className={`block w-10 h-5 rounded-full cursor-pointer transition-colors ${
+          className={`block w-13 h-6 rounded-full cursor-pointer transition-colors ${
             isDark ? 'bg-[#0d8bf2]' : 'bg-gray-300'
           }`}
         >
           <span
-            className={`absolute block w-3.5 h-3.5 bg-white rounded-full shadow-md transform transition-transform duration-200 top-[3px] flex items-center justify-center ${
-              isDark ? 'translate-x-[22px]' : 'translate-x-[3px]'
+            className={`absolute block w-5 h-5 bg-white rounded-full top-[2px] flex items-center justify-center transition-transform duration-300 ease-in-out ${
+              isDark ? 'translate-x-[29px]' : 'translate-x-[2px]'
             }`}
           >
             {isDark ? (
               <Moon className="h-3 w-6 text-blue-500" />
             ) : (
-              <Sun className="h-3 w-6 text-yellow-400" />
+              <Sun className="h-4 w-7 text-yellow-400" />
             )}
           </span>
         </label>{' '}
