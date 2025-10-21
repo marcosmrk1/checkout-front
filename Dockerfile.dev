@@ -1,0 +1,20 @@
+FROM node:20
+WORKDIR /app
+
+# Instala pnpm globalmente
+RUN npm install -g pnpm
+
+# Copia arquivos de dependências
+COPY package.json pnpm-lock.yaml* ./
+
+# Instala dependências
+RUN pnpm install
+
+# Copia o restante do código
+COPY . .
+
+# Expõe a porta padrão do Next.js
+EXPOSE 3000
+
+# Comando para iniciar o servidor de desenvolvimento
+CMD ["pnpm", "dev"]
