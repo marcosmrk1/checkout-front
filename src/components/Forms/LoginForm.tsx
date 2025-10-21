@@ -4,12 +4,13 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { Switch } from '@/components/ui/switch'
+import { useRouter } from 'next/navigation'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('alex.jordan@gmail.com')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
-
+  const router = useRouter()
   return (
     <div className="w-full max-w-md space-y-6">
       <div className="text-center space-y-2">
@@ -58,7 +59,7 @@ export default function LoginForm() {
           <span className="text-sm text-gray-700">Lembrar dos detalhes</span>
         </div>
 
-        <Button onClick={() => console.log('Logging in...')}>Log in</Button>
+        <Button onClick={() => router.push('/catalog')}>Log in</Button>
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
@@ -98,7 +99,7 @@ export default function LoginForm() {
         <div className="text-center">
           <span className="text-sm text-gray-600">
             Don't have an account?{' '}
-            <button className="text-purple-600 hover:text-purple-700 font-medium">
+            <button className="text-purple-600 hover:text-purple-700 font-medium cursor-pointer">
               Sign up
             </button>
           </span>

@@ -34,7 +34,7 @@ const buttonVariants = cva(
   },
 )
 const defaultClass =
-  'w-full bg-[#1c5e5c] text-white font-medium py-3 rounded-lg transition-colors hover:bg-[#144949] hover:shadow-md'
+  'w-full bg-[#1c5e5c] text-white font-medium py-3 rounded-lg transition-colors hover:bg-[#144949] hover:shadow-md cursor-pointer '
 
 function Button({
   className,
