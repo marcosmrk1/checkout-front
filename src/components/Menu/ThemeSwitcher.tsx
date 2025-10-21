@@ -4,12 +4,19 @@ import { useTheme } from 'next-themes'
 import { useEffect, useId, useState } from 'react'
 
 const ThemeSwitcher = () => {
+  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   const isDark = theme === 'dark'
   const id = useId()
 
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   const handleToggle = () => {
     setTheme(isDark ? 'light' : 'dark')
+  }
+  if (!mounted) {
+    return <div className="w-13 h-6"></div> //
   }
 
   return (

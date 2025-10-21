@@ -28,20 +28,13 @@ export default function RootLayoutPrivate({
         geistMono.variable,
       )}
     >
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        <SidebarProvider>
-          <AppSideBar />
-          <main className="p-4">
-            <SidebarTrigger />
-            {children}
-          </main>
-        </SidebarProvider>
-      </ThemeProvider>
+      <SidebarProvider>
+        <AppSideBar />
+        <main className="p-4">
+          <SidebarTrigger />
+          {children}
+        </main>
+      </SidebarProvider>
     </div>
   )
 }
