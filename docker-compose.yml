@@ -1,9 +1,9 @@
 services:
-  nextapp:
+  checkout-frontend:
     build:
       context: .
-      dockerfile: Dockerfile
-    container_name: alguel-frontend
+      dockerfile: Dockerfile.dev
+    container_name: checkout-frontend
     ports:
       - '3000:3000'
     volumes:
