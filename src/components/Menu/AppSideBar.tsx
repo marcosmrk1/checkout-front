@@ -1,3 +1,4 @@
+import { ThemeSwitcher } from '@/components/Menu/ThemeSwitcher'
 import {
   Sidebar,
   SidebarContent,
@@ -11,10 +12,20 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { MENU_ITENS_ROUTES } from '@/routes'
+import { Mountain } from 'lucide-react'
 
-export function AppSidebar() {
+const AppSideBar = () => {
   return (
     <Sidebar>
+      <SidebarHeader>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Mountain className="h-6 w-6" />
+            <span className="font-semibold">Sua Empresa</span>
+          </div>
+          <ThemeSwitcher />
+        </div>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -37,3 +48,4 @@ export function AppSidebar() {
     </Sidebar>
   )
 }
+export { AppSideBar }
