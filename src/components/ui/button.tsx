@@ -33,11 +33,7 @@ const buttonVariants = cva(
     },
   },
 )
-const defaultClass =
-  'w-full bg-[#1c5e5c] text-white font-medium py-3 rounded-lg transition-colors hover:bg-[#144949] hover:shadow-md cursor-pointer '
-
 function Button({
-  className,
   variant,
   size,
   asChild = false,
@@ -48,13 +44,7 @@ function Button({
   }) {
   const Comp = asChild ? Slot : 'button'
 
-  return (
-    <Comp
-      data-slot="button"
-      className={className ? cn(className) : defaultClass}
-      {...props}
-    />
-  )
+  return <Comp data-slot="button" {...props} />
 }
 
 export { Button, buttonVariants }

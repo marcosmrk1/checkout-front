@@ -3,7 +3,6 @@ import { ThemeSwitcher } from '@/components/Menu/ThemeSwitcher'
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,

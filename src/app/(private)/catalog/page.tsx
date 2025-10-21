@@ -1,3 +1,9 @@
+import { ListProductPrice } from '@/components/Catalog/ListProductPrice'
+
 export default function Home() {
-  return <div>Catalog Page</div>
+  return (
+    <div>
+      <ListProductPrice />
+    </div>
+  )
 }
