@@ -2,7 +2,6 @@ import { Card } from '@/components/ui/card'
 import { User, Mail, Phone, MapPin } from 'lucide-react'
 
 const UserReadingCard = () => {
-  // Dados mockados do usuário
   const user = {
     name: 'João Silva',
     email: 'joao.silva@email.com',
@@ -12,7 +11,7 @@ const UserReadingCard = () => {
 
   return (
     <Card className="w-full rounded-md p-4 bg-card border-transparent">
-      <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
+      <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
         <User className="h-5 w-5" />
         Informações do Cliente
       </h3>

@@ -58,17 +58,17 @@ const OrderReview = () => {
 
   return (
     <Card className="w-full rounded-md p-4 bg-card border-transparent">
-      <div className="gap-4 flex items-center">
-        <ShoppingCart /> <span>Produtos</span>
+      <div className="gap-4 flex items-center ">
+        <ShoppingCart /> <span className="font-bold">Produtos</span>
       </div>
-      <div className="mt-4 w-full max-h-96 overflow-y-auto">
+      <div className="mt-4 w-full max-h-96 overflow-y-auto ">
         {products.map((item) => (
           <div key={item.id} className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-4">
               <Button
                 size="icon"
                 variant="ghost"
-                className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10  cursor-pointer"
                 onClick={() => handleDeleteProduct(item.id)}
               >
                 <Trash2 className="h-4 w-4" />
@@ -86,7 +86,7 @@ const OrderReview = () => {
                     <Button
                       size="icon"
                       variant="outline"
-                      className="h-6 w-6"
+                      className="h-6 w-6  cursor-pointer"
                       onClick={() => updateProductQuantity(item.id, -1)}
                       disabled={item.quantity <= 1}
                     >
@@ -98,7 +98,7 @@ const OrderReview = () => {
                     <Button
                       size="icon"
                       variant="outline"
-                      className="h-6 w-6"
+                      className="h-6 w-6 cursor-pointer"
                       onClick={() => updateProductQuantity(item.id, 1)}
                     >
                       <Plus className="h-3 w-3" />
@@ -111,7 +111,7 @@ const OrderReview = () => {
           </div>
         ))}
       </div>
-      <div className="border-t pt-4 mt-4 flex justify-between">
+      <div className="border-t my-2 flex justify-between pt-4">
         <span className="font-semibold">Total:</span>
         <span className="font-bold">
           R${' '}
