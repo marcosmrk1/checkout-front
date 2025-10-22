@@ -31,7 +31,7 @@ const LoginHeader = () => {
         </div>
       </div>
 
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-background">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 ">
         <LoginForm />
       </div>
     </div>
