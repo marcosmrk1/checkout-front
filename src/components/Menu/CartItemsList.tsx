@@ -35,7 +35,7 @@ const CartItemsList = () => {
           <span className="font-bold">R$ 299,70</span>
         </div>
         <Button className="w-full" asChild>
-          <Link href="/checkout" className="flex items-center justify-center gap-2">
+          <Link href="/cart" className="flex items-center justify-center gap-2">
             <ShoppingCart className="h-4 w-4" />
             Finalizar Compra
           </Link>

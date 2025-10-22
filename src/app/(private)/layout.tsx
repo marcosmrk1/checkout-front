@@ -26,12 +26,12 @@ export default function RootLayoutPrivate({
       <SidebarProvider>
         <AppSideBar />
         <main className="w-full ">
-          <div className=" top-0 z-40 w-full border-b  ">
+          <div className="top-0 z-40 w-full border-b ">
             <NavBarHeader />
           </div>
           <div className="p-4">
             <SidebarTrigger />
-            {children}
+            <div className="container mx-auto px-4 py-6">{children}</div>
           </div>
         </main>
       </SidebarProvider>

@@ -87,6 +87,7 @@
   --sidebar-border: oklch(0.9 0.02 180);
   --sidebar-ring: oklch(0.65 0.15 175);
 }
+
 .dark {
   svg.lucide {
     color: white;
