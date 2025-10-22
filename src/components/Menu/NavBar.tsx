@@ -13,44 +13,44 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Badge } from '@/components/ui/badge'
+import { CartItemsList } from '@/components/Menu/CartItemsList'
 
-export default function Header() {
+const NavBarHeader = () => {
   const [cartItemsCount] = useState(3)
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4">
-        {/* Logo/Brand */}
-        <div className="flex items-center space-x-2">
-          <Link href="/" className="text-2xl font-bold hover:text-primary transition">
-            Sua Empresa
-          </Link>
-        </div>
+    <div className="flex h-16 items-center justify-between px-4 bg-sidebar">
+      <div className="flex items-center space-x-2">
+        <Link href="/" className="text-2xl font-bold text-sidebar-foreground">
+          Sua Empresa
+        </Link>
+      </div>
 
-        <nav className="hidden md:flex items-center space-x-6">
-          <Link
-            href="/"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
-            Home
-          </Link>
-          <Link
-            href="/produtos"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
-            Produtos
-          </Link>
-          <Link
-            href="/categorias"
-            className="text-sm font-medium transition-colors hover:text-primary"
-          >
-            Categorias
-          </Link>
-        </nav>
+      <nav className="hidden md:flex items-center space-x-6">
+        <Link
+          href="/"
+          className="text-sm font-medium transition-colors hover:text-sidebar-primary"
+        >
+          Home
+        </Link>
+        <Link
+          href="/produtos"
+          className="text-sm font-medium transition-colors hover:text-sidebar-primary"
+        >
+          Produtos
+        </Link>
+        <Link
+          href="/categorias"
+          className="text-sm font-medium transition-colors hover:text-sidebar-primary"
+        >
+          Categorias
+        </Link>
+      </nav>
 
-        <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="icon" asChild className="relative">
-            <Link href="/carrinho">
+      <div className="flex items-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" className="relative">
               <ShoppingCart className="h-5 w-5" />
               {cartItemsCount > 0 && (
                 <Badge
@@ -60,46 +60,59 @@ export default function Header() {
                   {cartItemsCount}
                 </Badge>
               )}
-            </Link>
-          </Button>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-80">
+            <DropdownMenuLabel>Carrinho de Compras</DropdownMenuLabel>
+            <DropdownMenuSeparator />
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-64">
-              <DropdownMenuLabel>
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">João Silva</p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    joao@email.com
-                  </p>
-                </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/pedidos" className="cursor-pointer">
-                  <Package className="mr-2 h-4 w-4" />
-                  <span>Meus Pedidos</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/configuracoes" className="cursor-pointer">
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Configurações</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive cursor-pointer">
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Sair</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+            {cartItemsCount === 0 ? (
+              <div className="py-6 text-center text-sm text-muted-foreground">
+                Seu carrinho está vazio
+              </div>
+            ) : (
+              <CartItemsList />
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <User className="h-5 w-5" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-64">
+            <DropdownMenuLabel>
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">João Silva</p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  joao@email.com
+                </p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link href="/pedidos" className="cursor-pointer">
+                <Package className="mr-2 h-4 w-4" />
+                <span>Meus Pedidos</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/configuracoes" className="cursor-pointer">
+                <Settings className="mr-2 h-4 w-4" />
+                <span>Configurações</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="text-destructive cursor-pointer">
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Sair</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-    </header>
+    </div>
   )
 }
+export { NavBarHeader }

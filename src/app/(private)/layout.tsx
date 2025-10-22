@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { ThemeProvider } from 'next-themes'
 import { AppSideBar } from '@/components/Menu/AppSideBar'
-import Header from '@/components/Menu/NavBar'
+import { NavBarHeader } from '@/components/Menu/NavBar'
 
 const geistSans = Geist({
   subsets: ['latin'],
@@ -25,8 +25,10 @@ export default function RootLayoutPrivate({
     <div className={cn(geistSans.variable, geistMono.variable)}>
       <SidebarProvider>
         <AppSideBar />
-        <main className="w-full">
-          <Header />
+        <main className="w-full ">
+          <div className=" top-0 z-40 w-full border-b  ">
+            <NavBarHeader />
+          </div>
           <div className="p-4">
             <SidebarTrigger />
             {children}
