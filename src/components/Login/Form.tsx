@@ -5,8 +5,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { Switch } from '@/components/ui/switch'
 import { useRouter } from 'next/navigation'
+import { defaultStyleButton } from '@/lib/constantsStyleDefault/Button'
 
-export default function LoginForm() {
+const LoginForm = () => {
   const [email, setEmail] = useState('alex.jordan@gmail.com')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
@@ -14,8 +15,8 @@ export default function LoginForm() {
   return (
     <div className="w-full max-w-md space-y-6">
       <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold text-gray-900">Seja bem-vindo </h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold ">Seja bem-vindo </h1>
+        <p>
           breve descrição sobre o projeto
           <br />
           algo complementar nao obrigatorio.
@@ -24,9 +25,7 @@ export default function LoginForm() {
 
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="email" className="text-gray-700">
-            E-mail
-          </Label>
+          <Label htmlFor="email">E-mail</Label>
           <Input
             id="email"
             type="email"
@@ -37,9 +36,7 @@ export default function LoginForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-gray-700">
-            Senha
-          </Label>
+          <Label htmlFor="password">Senha</Label>
           <Input
             id="password"
             type="password"
@@ -56,23 +53,28 @@ export default function LoginForm() {
             onCheckedChange={setRememberMe}
             className=" data-[state=checked]:bg-green-500 text-2xl spacing-1"
           />
-          <span className="text-sm text-gray-700">Lembrar dos detalhes</span>
+          <span className="text-sm ">Lembrar dos detalhes</span>
         </div>
 
-        <Button onClick={() => router.push('/catalog')}>Log in</Button>
+        <Button
+          onClick={() => router.push('/catalog')}
+          className={defaultStyleButton + ' w-full'}
+        >
+          Log in
+        </Button>
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t border-gray-300" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-white px-2 text-gray-500">OR</span>
+            <span className="  px-2 text-gray-500">OR</span>
           </div>
         </div>
 
         <Button
           variant="outline"
-          className="w-full flex items-center justify-center space-x-2 py-3 border-gray-300 hover:bg-gray-50"
+          className="w-full flex items-center justify-center space-x-2 py-3 0"
           onClick={() => console.log('Continuing with Google...')}
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -93,11 +95,11 @@ export default function LoginForm() {
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
             />
           </svg>
-          <span className="font-medium text-gray-700">Continue with Google</span>
+          <span className="font-medium ">Continue with Google</span>
         </Button>
 
         <div className="text-center">
-          <span className="text-sm text-gray-600">
+          <span className="text-sm ">
             Don't have an account?{' '}
             <button className="text-purple-600 hover:text-purple-700 font-medium cursor-pointer">
               Sign up
@@ -108,3 +110,4 @@ export default function LoginForm() {
     </div>
   )
 }
+export { LoginForm }

@@ -17,9 +17,9 @@ export default function PublicLayout({
   return (
     <div
       className={cn(
-        'min-h-screen bg-background text-foreground font-sans antialiased',
         geistSans.variable,
         geistMono.variable,
+        'bg-background text-foreground min-h-screen  ',
       )}
     >
       {children}

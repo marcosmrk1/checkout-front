@@ -33,8 +33,6 @@ const buttonVariants = cva(
     },
   },
 )
-const defaultClass =
-  'w-full bg-[#1c5e5c] text-white font-medium py-3 rounded-lg transition-colors hover:bg-[#144949] hover:shadow-md cursor-pointer '
 
 function Button({
   className,
@@ -51,7 +49,7 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={className ? cn(className) : defaultClass}
+      className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
   )

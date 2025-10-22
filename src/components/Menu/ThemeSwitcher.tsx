@@ -32,7 +32,7 @@ const ThemeSwitcher = () => {
         <label
           htmlFor={id}
           className={`block w-13 h-6 rounded-full cursor-pointer transition-colors ${
-            isDark ? 'bg-[#0d8bf2]' : 'bg-gray-300'
+            isDark ? 'bg-[#1c5e5c]' : 'bg-gray-300'
           }`}
         >
           <span
