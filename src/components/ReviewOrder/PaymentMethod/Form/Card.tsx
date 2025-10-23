@@ -26,8 +26,7 @@ const CardForm = () => {
   return (
     <form onSubmit={formik.handleSubmit} className="max-w-[700px] mx-auto">
       <div className="flex gap-6">
-        {/* Cartão visual */}
-        <div className="w-[300px] h-[160px] bg-gray-400 rounded-xl p-4 flex flex-col justify-between">
+        <div className="w-70 h-40 bg-gray-400 rounded-xl p-4 flex flex-col justify-between">
           <div>
             <img
               src="https://img.icons8.com/ios-filled/50/000000/sim-card-chip.png"
@@ -41,7 +40,6 @@ const CardForm = () => {
             <div className="text-white text-sm mt-1">Válido até ••/••</div>
           </div>
         </div>
-        {/* Campos do formulário */}
         <div className="flex-1">
           <div className="mb-2">
             <Label htmlFor="cardNumber">Número do cartão*</Label>
