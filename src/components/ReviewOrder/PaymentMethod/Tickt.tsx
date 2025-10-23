@@ -6,8 +6,6 @@ import { cn } from '@/lib/utils'
 import { PaymentMethodItem } from '@/components/ReviewOrder/PaymentMethod/PaymenteMethod'
 
 const TicketMethodPayment = () => {
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
     <PaymentMethodItem
       description="O pagamento via boleto bancário é uma opção prática e segura. Após a

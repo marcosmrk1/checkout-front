@@ -9,6 +9,7 @@ interface PaymentMethodItemProps {
   description: string
   defaultOpen?: boolean
   Children: React.ReactNode
+  paymentMethodSelected?: 'pix' | 'creditCard' | 'ticket'
 }
 
 const PaymentMethodItem = ({

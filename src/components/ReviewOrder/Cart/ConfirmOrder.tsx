@@ -20,15 +20,14 @@ const ConfirmOrder = () => {
 
   return (
     <Card className="w-full rounded-md p-4 bg-card border-transparent">
-      <div className="flex flex-col gap-3">
-        <Button onClick={handleConfirm} className="w-full" size="lg">
-          <Check className="h-5 w-5 mr-2" />
-          Confirmar Pedido
-        </Button>
-
-        <Button onClick={handleBack} variant="outline" className="w-full" size="lg">
-          <ArrowLeft className="h-5 w-5 mr-2" />
+      <div className="flex   gap-3 w-full ">
+        <Button onClick={handleBack} variant="outline" className="w-1/2" size="lg">
+          <ArrowLeft className="h-5 w-4 mr-2" />
           Voltar ao Catálogo
+        </Button>
+        <Button onClick={handleConfirm} className="w-1/2" size="lg">
+          <Check className="h-5 w-4 mr-2" />
+          Confirmar Pedido
         </Button>
       </div>
     </Card>

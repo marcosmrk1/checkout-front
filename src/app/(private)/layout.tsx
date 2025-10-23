@@ -29,9 +29,9 @@ export default function RootLayoutPrivate({
           <div className="top-0 z-40 w-full border-b ">
             <NavBarHeader />
           </div>
-          <div className="p-4">
+          <div className="p-1">
             <SidebarTrigger />
-            <div className="container mx-auto px-4 py-6">{children}</div>
+            <div className="container mx-auto px-3 ">{children}</div>
           </div>
         </main>
       </SidebarProvider>
