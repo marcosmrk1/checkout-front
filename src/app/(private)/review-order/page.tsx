@@ -1,7 +1,7 @@
-import { ConfirmOrder } from '@/components/Cart/confirmOrder'
-import { OrderReview } from '@/components/Cart/OrderReview'
-import { TimeBuy } from '@/components/Cart/TimeBuy'
-import { UserReadingCard } from '@/components/Cart/userReading'
+import { ConfirmOrder } from '@/components/ReviewOrder/Cart/confirmOrder'
+import { OrderReview } from '@/components/ReviewOrder/Cart/OrderReview'
+import { TimeBuy } from '@/components/ReviewOrder/Cart/TimeBuy'
+import { UserReadingCard } from '@/components/ReviewOrder/Cart/userReading'
 
 export default function Home() {
   return (
