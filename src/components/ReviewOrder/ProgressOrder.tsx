@@ -57,12 +57,12 @@ const ProgressOrderStep = ({ currentStep = 1 }: CheckoutStepperProps) => {
         {steps.map((step, index) => (
           <div key={step.id} className="relative flex flex-col items-center flex-1">
             <div
-              className={cn(
-                'relative flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all z-10',
-                currentStep >= step.id
-                  ? 'bg-primary border-primary text-primary-foreground'
-                  : 'bg-background border-muted-foreground/30 text-muted-foreground',
-              )}
+              className={
+                'relative flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all z-10 ' +
+                (currentStep >= step.id
+                  ? 'bg-primary border-primary '
+                  : 'bg-background ')
+              }
             >
               {currentStep > step.id ? <Check className="h-5 w-5" /> : step.icon}
             </div>
@@ -76,16 +76,14 @@ const ProgressOrderStep = ({ currentStep = 1 }: CheckoutStepperProps) => {
               >
                 {step.title}
               </p>
-              <p className="text-xs text-muted-foreground mt-1 max-w-[120px]">
-                {step.description}
-              </p>
+              <p className="text-xs  mt-1 max-w-[120px]">{step.description}</p>
             </div>
 
             {index < steps.length - 1 && (
               <div
                 className={cn(
-                  'absolute top-6 h-0.5 -z-0',
-                  currentStep > step.id ? 'bg-primary' : 'bg-muted-foreground/30',
+                  'absolute top-6 h-0.5 ',
+                  currentStep > step.id ? 'bg-primary' : 'bg-muted',
                 )}
                 style={{
                   left: 'calc(50% + 24px)',

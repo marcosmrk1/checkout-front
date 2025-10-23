@@ -22,7 +22,13 @@ export default function RootLayoutPrivate({
   children: React.ReactNode
 }>) {
   return (
-    <div className={cn(geistSans.variable, geistMono.variable)}>
+    <div
+      className={cn(
+        geistSans.variable,
+        geistMono.variable,
+        'bg-accent-foreground,bg-background text-foreground min-h-screen ',
+      )}
+    >
       <SidebarProvider>
         <AppSideBar />
         <main className="w-full ">

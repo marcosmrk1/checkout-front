@@ -62,7 +62,7 @@ const PaymentMethod = () => {
           <AccordionItem
             key={method.id}
             value={String(method.id)}
-            className="  rounded-lg overflow-hidden mb-4"
+            className="  border-transparent rounded-lg overflow-hidden mb-4"
           >
             <AccordionTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent transition-colors">
               <div className="flex items-center gap-3">
