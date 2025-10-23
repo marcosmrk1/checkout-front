@@ -6,7 +6,7 @@ import { TimeBuy } from '@/components/ReviewOrder/Cart/TimeBuy'
 import { OrderReview } from '@/components/ReviewOrder/Cart/OrderReview'
 import { UserReadingCard } from '@/components/Shared/UserReading'
 import { ConfirmOrder } from '@/components/ReviewOrder/Cart/ConfirmOrder'
-import { PixMethodPayment } from '@/components/ReviewOrder/PaymentMethod/Pix'
+
 import { Card } from '@/components/ui/card'
 import { PaymentMethodSelector } from '@/components/ReviewOrder/PaymentMethod/MethodSelect'
 import { ReviewCompletRequestCart } from '@/components/ReviewOrder/Cart/ReviewCompletRequest'
@@ -56,7 +56,6 @@ const ProgressOrderStep = ({ currentStep = 1 }: CheckoutStepperProps) => {
       <div className="relative flex items-start justify-between">
         {steps.map((step, index) => (
           <div key={step.id} className="relative flex flex-col items-center flex-1">
-            {/* Step Circle */}
             <div
               className={cn(
                 'relative flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all z-10',
@@ -68,7 +67,6 @@ const ProgressOrderStep = ({ currentStep = 1 }: CheckoutStepperProps) => {
               {currentStep > step.id ? <Check className="h-5 w-5" /> : step.icon}
             </div>
 
-            {/* Step Info */}
             <div className="mt-3 text-center">
               <p
                 className={cn(
@@ -83,7 +81,6 @@ const ProgressOrderStep = ({ currentStep = 1 }: CheckoutStepperProps) => {
               </p>
             </div>
 
-            {/* Connector Line */}
             {index < steps.length - 1 && (
               <div
                 className={cn(
