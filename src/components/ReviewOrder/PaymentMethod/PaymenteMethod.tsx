@@ -2,6 +2,12 @@
 import { Checkbox } from '@/components/ui/checkbox'
 
 import React, { useState } from 'react'
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/accordion'
 import { ChevronDown, ChevronUp, CreditCard, QrCode, Barcode } from 'lucide-react'
 import { IMethodDescriptionSelect, IMethodsPayment } from '@/@interface/IMethodsPayment'
 
@@ -43,38 +49,55 @@ const PaymentMethod = () => {
   }
 
   return (
-    <div>
-      {methodsPayment.map((method) => (
-        <div key={method.id} className="border rounded-lg overflow-hidden mb-4">
-          <button
-            onClick={() => handleSelect(method.id)}
-            className="w-full flex items-center justify-between p-4 hover:bg-accent transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <Checkbox
-                checked={selectedIndex === method.id}
-                onCheckedChange={() => handleSelect(method.id)}
-              />
-              {method.icon}
-              <span className="font-semibold">{method.title}</span>
-            </div>
-            {selectedIndex === method.id ? (
-              <ChevronUp className="h-5 w-5 text-muted-foreground" />
-            ) : (
-              <ChevronDown className="h-5 w-5 text-muted-foreground" />
-            )}
-          </button>
-          <div className="overflow-hidden">
-            {selectedIndex === method.id && (
-              <div className="p-4 pt-3 border-t bg-muted/50">
-                <p className="p-4 pt-3">{method.description}</p>
-              </div>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
+    <form>
+      <div className="border p-4 rounded-lg">
+        <Accordion
+          type="single"
+          collapsible
+          value={selectedIndex ? String(selectedIndex) : undefined}
+          onValueChange={(v) => setSelectedIndex(v ? Number(v) : null)}
+        >
+          {methodsPayment.map((method) => (
+            <AccordionItem
+              key={method.id}
+              value={String(method.id)}
+              className="  rounded-lg overflow-hidden mb-4"
+            >
+              <AccordionTrigger className="w-full flex items-center justify-between p-4 hover:bg-accent transition-colors">
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={selectedIndex === method.id}
+                    onChange={() => handleSelect(method.id)}
+                    className="checkbox-custom"
+                    style={{
+                      background: 'var(--checkbox-bg)',
+                      border: '2px solid var(--checkbox-border)',
+                      borderRadius: '50%',
+                      width: '20px',
+                      height: '20px',
+                      accentColor: 'var(--primary)',
+                      cursor: 'pointer',
+                      transition: 'box-shadow 0.2s',
+                    }}
+                  />
+                  {method.icon}
+                  <span className="font-semibold">{method.title}</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="overflow-hidden">
+                <div className="p-4 pt-3 border-t bg-muted/50">
+                  <p className="p-4 pt-3">{method.description}</p>
+                  <div></div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </form>
   )
 }
 
 export { PaymentMethod }
+//

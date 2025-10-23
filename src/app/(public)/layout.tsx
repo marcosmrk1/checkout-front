@@ -14,15 +14,5 @@ const geistMono = Geist_Mono({
 export default function PublicLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <div
-      className={cn(
-        geistSans.variable,
-        geistMono.variable,
-        'bg-background text-foreground min-h-screen  ',
-      )}
-    >
-      {children}
-    </div>
-  )
+  return <div className={cn(geistSans.variable, geistMono.variable)}>{children}</div>
 }

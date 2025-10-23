@@ -45,7 +45,7 @@
 
 :root {
   --checkbox-bg: transparent;
-  --checkbox-border: #6b717e; /* Tailwind gray-200 */
+  --checkbox-border: #6b717e;
   --radius: 0.625rem;
   --background: oklch(0.94 0.003 180);
   --foreground: oklch(0.2 0.03 180);
