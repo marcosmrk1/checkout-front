@@ -47,11 +47,13 @@
   --checkbox-bg: transparent;
   --checkbox-border: #6b717e;
   --radius: 0.625rem;
-  --background: oklch(0.94 0.003 180);
+  --background: oklch(100% 0.00011 271.152);
+  /* --background: #f2f3f4; */
   --foreground: oklch(0.2 0.03 180);
   --span: oklch(0.8 0.01 180);
 
-  --card: oklch(0.98 0.005 180);
+  --card: oklch(96.535% 0.00247 167.521);
+  /* --card: #ffffff; */
   --card-foreground: oklch(0.2 0.03 180);
 
   --popover: oklch(0.98 0.005 180);
@@ -96,9 +98,11 @@
   svg.lucide {
     color: white;
   }
-  --background: oklch(9.838% 0.01243 174.886 / 0.315);
+  /* --background: oklch(29.93% 0.0532 167.199 / 0.315); */
+  --background: rgb(16, 15, 15);
   --foreground: oklch(0.98 0.005 180);
-  --card: var(--background);
+  /* --card: oklch(15.131% 0.02673 171.662 / 0.315); */
+  --card: #151515;
   --card-foreground: var(--foreground);
   --popover: var(--card);
   --popover-foreground: var(--foreground);
@@ -127,3 +131,4 @@
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 }
+/* cores comentadas sao duvidas podem mudar  */
