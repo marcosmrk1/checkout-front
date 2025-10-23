@@ -1,4 +1,5 @@
 'use client'
+import { Checkbox } from '@/components/ui/checkbox'
 
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp, LucideIcon } from 'lucide-react'
@@ -9,7 +10,6 @@ interface PaymentMethodItemProps {
   description: string
   defaultOpen?: boolean
   Children: React.ReactNode
-  paymentMethodSelected?: 'pix' | 'creditCard' | 'ticket'
 }
 
 const PaymentMethodItem = ({
@@ -28,6 +28,7 @@ const PaymentMethodItem = ({
         className="w-full flex items-center justify-between p-4 hover:bg-accent transition-colors"
       >
         <div className="flex items-center gap-3">
+          <Checkbox />
           <Icon className="h-5 w-5 text-primary" />
           <span className="font-semibold">{title}</span>
         </div>
@@ -39,10 +40,12 @@ const PaymentMethodItem = ({
       </button>
 
       <div className="overflow-hidden">
-        <div className="p-4 pt-3 border-t bg-muted/50  ">
-          <p className={'p-4 pt-3   '}>{description}</p>
-          <div>{Children}</div>
-        </div>
+        {isOpen && (
+          <div className="p-4 pt-3 border-t bg-muted/50">
+            <p className="p-4 pt-3">{description}</p>
+            <div>{Children}</div>
+          </div>
+        )}
       </div>
     </div>
   )

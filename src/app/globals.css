@@ -44,6 +44,8 @@
 }
 
 :root {
+  --checkbox-bg: transparent;
+  --checkbox-border: #6b717e; /* Tailwind gray-200 */
   --radius: 0.625rem;
   --background: oklch(0.94 0.003 180);
   --foreground: oklch(0.2 0.03 180);
@@ -89,6 +91,8 @@
 }
 
 .dark {
+  --checkbox-bg: #fff;
+  --checkbox-border: #fff;
   svg.lucide {
     color: white;
   }
