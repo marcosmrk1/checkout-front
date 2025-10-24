@@ -16,7 +16,7 @@ const ThemeSwitcher = () => {
     setTheme(isDark ? 'light' : 'dark')
   }
   if (!mounted) {
-    return <div className="w-13 h-6"></div> //
+    return <div className="w-13 h-6"></div>
   }
 
   return (

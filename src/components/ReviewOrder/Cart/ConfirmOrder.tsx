@@ -9,9 +9,7 @@ const ConfirmOrder = () => {
   const router = useRouter()
 
   const handleConfirm = () => {
-    // Aqui você pode adicionar a lógica de confirmação do pedido
     console.log('Pedido confirmado!')
-    // Exemplo: router.push('/success')
   }
 
   const handleBack = () => {
