@@ -2,6 +2,7 @@ import { CardYup } from '@/components/ReviewOrder/PaymentMethod/Form/CardYup'
 import { useFormik } from 'formik'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
+import { Button } from '@/components/ui/button'
 
 const initialValues = {
   cardNumber: '',
@@ -18,7 +19,9 @@ const CardForm = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      console.log('Form values:', values)
+      const payload = {
+        last4Number: values.cardNumber.slice(-4),
+      }
     },
     validationSchema: CardYup,
   })
@@ -164,12 +167,9 @@ const CardForm = () => {
               Este é meu cartão padrão
             </label>
           </div>
-          <button
-            type="submit"
-            className="mt-4 px-6 py-2 bg-blue-700 text-white rounded hover:bg-blue-800 transition-colors"
-          >
+          <Button type="submit" className="mt-4 px-6 py-2 ">
             Confirmar
-          </button>
+          </Button>
         </div>
       </div>
     </form>
