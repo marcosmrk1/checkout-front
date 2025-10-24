@@ -13,3 +13,9 @@ export interface IResponse<T> {
     perPage?: number
   }
 }
+export interface IResponseSingle<T> {
+  data: T | null
+  success: boolean
+  message: string
+  errors: string[]
+}

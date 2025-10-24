@@ -1,22 +1,20 @@
 'use client'
-import { IProductStore } from '@/@interface/api/IProductStore'
-import { useGetAllProducts } from '@/api/service/hooks/productStore/get/useGetAllProducts'
+import { useAddPostCard } from '@/api/service/hooks/cart/post/usePostCartProducts'
+import {
+  product,
+  useGetAllProducts,
+} from '@/api/service/hooks/productStore/get/useGetAllProducts'
+import { GenericLoading } from '@/components/Generic/Loading'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { defaultStyleButton } from '@/lib/constantsStyleDefault/Button'
+import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
+import { addToCart } from '@/utils/localStorage/Cart'
 import { Heart, ShoppingCart, Star, Eye } from 'lucide-react'
 
 const ListProductPrice = () => {
   const { data, loading, error } = useGetAllProducts()
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <span className="animate-spin h-8 w-8 mb-2 border-4 border-primary border-t-transparent rounded-full" />
-        <span className="ml-4">Carregando produtos...</span>
-      </div>
-    )
-  }
+  if (loading) return <GenericLoading />
 
   if (error) {
     return (
@@ -94,6 +92,7 @@ const ListProductPrice = () => {
               <div className="absolute inset-0 flex w-full items-center gap-2 opacity-0 transition-all duration-300 group-hover/price:opacity-100">
                 <div className="flex gap-2 w-full">
                   <Button
+                    onClick={() => useAddPostCard(product)}
                     className={`${defaultStyleButton} px-4 flex-1 shadow-md hover:shadow-lg transition-shadow`}
                   >
                     <span className="font-semibold">Comprar R$ {product.price},00</span>
@@ -102,7 +101,7 @@ const ListProductPrice = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-2 text-xs text-muted-foreground border-t border-border/50">
+            <div className="flex items-center justify-between pt-2 text-xs   ">
               <span>🚚 Frete grátis</span>
               <span>⚡ Entrega rápida</span>
             </div>

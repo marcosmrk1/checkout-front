@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { IProductStore } from '@/@interface/api/IProductStore'
 import { ROUTE_PRODUCT_API } from '@/api/service/routes/productStore'
+import { LOCAL_STORAGE_PRODUCTS } from '@/utils/localStorage/Products'
+import { IProduct } from '@/@interface/api/IProduct'
 
 // Mock dos produtos
-const product: IProductStore[] = [
+export const product: IProduct[] = [
   {
     id: 1,
     name: 'controle Xbox',
@@ -54,7 +55,7 @@ const product: IProductStore[] = [
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
 export function useGetAllProducts() {
-  const [data, setData] = useState<IProductStore[]>([])
+  const [data, setData] = useState<IProduct[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -65,7 +66,9 @@ export function useGetAllProducts() {
       try {
         await fetch(ROUTE_PRODUCT_API).catch(() => {})
         await wait(500)
-        setData(product)
+        localStorage.setItem(LOCAL_STORAGE_PRODUCTS, JSON.stringify(product))
+        const storedProducts = localStorage.getItem(LOCAL_STORAGE_PRODUCTS)
+        setData(storedProducts ? JSON.parse(storedProducts) : [])
       } catch (err: any) {
         setError('Erro ao buscar produtos.')
       } finally {

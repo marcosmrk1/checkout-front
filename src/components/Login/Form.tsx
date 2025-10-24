@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { Switch } from '@/components/ui/switch'
 import { useRouter } from 'next/navigation'
-import { defaultStyleButton } from '@/lib/constantsStyleDefault/Button'
+import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('alex.jordan@gmail.com')
