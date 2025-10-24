@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { getCart } from '@/utils/localStorage/Cart'
-import { IResponse } from '@/@interface/response/response'
+import { IResponse } from '@/@interface/response/Iresponse'
 import { ICart } from '@/@interface/api/ICart'
 import { ROUTE_CART } from '@/api/service/routes/Cart'
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
-export function useGetAllCartProducts() {
+export function useGetAllCartProducts(refresh?: number) {
   const [response, setResponse] = useState<IResponse<ICart>>({} as IResponse<ICart>)
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function useGetAllCartProducts() {
       }
     }
     fetchCart()
-  }, [])
+  }, [refresh])
 
   return response
 }

@@ -4,16 +4,19 @@ import { OrderSummary } from '@/components/ReviewOrder/Cart/OrderSummary'
 import { TimeBuy } from '@/components/ReviewOrder/Cart/TimeBuy'
 import { UserReadingCard } from '@/components/Shared/UserReading'
 
+import { useState } from 'react'
+
 const ReviewCompletRequestCart = () => {
+  const [refresh, setRefresh] = useState(0)
   return (
     <div className="container grid grid-cols-12 gap-4  ">
       <div className="col-span-12 md:col-span-7 flex flex-col gap-4">
         <TimeBuy />
-        <OrderReview />
+        <OrderReview refresh={refresh} setRefresh={setRefresh} />
       </div>
       <div className="col-span-12 md:col-span-5 flex flex-col gap-4">
         <UserReadingCard />
-        <OrderSummary />
+        <OrderSummary refresh={refresh} />
         <ConfirmOrder />
       </div>
     </div>

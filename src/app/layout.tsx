@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'next-themes'
+import { ToastContainer } from 'react-toastify'
 
 export default function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <ToastContainer />
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,5 @@
 import { IProduct } from '@/@interface/api/IProduct'
-import { access } from 'fs'
-import { parse } from 'path'
+
 import { ICart, ICartItem } from '@/@interface/api/ICart'
 
 export const LOCA_STORAGE_CART = 'checkout:cart'
@@ -42,4 +41,41 @@ export function addToCart(product: IProduct) {
     0,
   )
   setCart(cart)
+  return cart
+}
+export function removeFromCart(productId: number) {
+  const cart = getCart()
+  const itemIndex = cart.itens.findIndex(
+    (item: ICartItem) => item.product.id === productId,
+  )
+  if (itemIndex > -1) {
+    cart.itens.splice(itemIndex, 1)
+    cart.total = cart.itens.reduce((acc, el) => acc + el.product.price * el.quantity, 0)
+    setCart(cart)
+  }
+  return cart
+}
+function updateProductQuantity(productId: number, delta: number) {
+  const cart = getCart()
+  const itemIndex = cart.itens.findIndex(
+    (item: ICartItem) => item.product.id === productId,
+  )
+  if (itemIndex > -1) {
+    cart.itens[itemIndex].quantity += delta
+    if (cart.itens[itemIndex].quantity <= 0) {
+      cart.itens.splice(itemIndex, 1)
+    }
+    cart.total = cart.itens.reduce((acc, el) => acc + el.product.price * el.quantity, 0)
+    setCart(cart)
+    return cart
+  }
+  return cart
+}
+
+export function decreaseProductQuantity(productId: number) {
+  return updateProductQuantity(productId, -1)
+}
+
+export function AddProductQuantity(productId: number) {
+  return updateProductQuantity(productId, 1)
 }
