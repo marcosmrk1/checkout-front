@@ -44,14 +44,17 @@
 }
 
 :root {
+  --checkbox-bg: transparent;
+  --checkbox-border: #6b717e;
   --radius: 0.625rem;
-  --background: oklch(0.94 0.003 180);
+  --background: oklch(100% 0.00011 271.152);
+  /* --background: #f2f3f4; */
   --foreground: oklch(0.2 0.03 180);
   --span: oklch(0.8 0.01 180);
 
-  --card: oklch(0.98 0.005 180);
+  --card: oklch(96.535% 0.00247 167.521);
+  /* --card: #ffffff; */
   --card-foreground: oklch(0.2 0.03 180);
-
   --popover: oklch(0.98 0.005 180);
   --popover-foreground: oklch(0.2 0.03 180);
 
@@ -61,7 +64,7 @@
   --secondary: oklch(0.94 0.01 180);
   --secondary-foreground: oklch(0.3 0.04 180);
 
-  --muted: oklch(0.94 0.01 180);
+  --muted: oklch(78.466% 0.00576 183.87);
   --muted-foreground: oklch(0.4 0.03 180);
 
   --accent: oklch(0.94 0.01 180);
@@ -69,7 +72,7 @@
 
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.9 0.02 180);
-  --input: oklch(0.9 0.02 180);
+  --input: oklch(40.056% 0.07853 167.335);
   --ring: oklch(0.65 0.15 175);
 
   --chart-1: oklch(0.65 0.15 175);
@@ -87,13 +90,19 @@
   --sidebar-border: oklch(0.9 0.02 180);
   --sidebar-ring: oklch(0.65 0.15 175);
 }
+
 .dark {
+  --checkbox-bg: #fff;
+  --checkbox-border: #fff;
   svg.lucide {
     color: white;
   }
-  --background: oklch(9.838% 0.01243 174.886 / 0.315);
+  /* --background: oklch(29.93% 0.0532 167.199 / 0.315); */
+  --background: rgb(16, 15, 15);
   --foreground: oklch(0.98 0.005 180);
-  --card: oklch(0.15 0.02 180);
+  /* --card: oklch(15.131% 0.02673 171.662 / 0.315); */
+
+  --card: #151515;
   --card-foreground: var(--foreground);
   --popover: var(--card);
   --popover-foreground: var(--foreground);
@@ -106,7 +115,7 @@
   --accent: var(--secondary);
   --accent-foreground: var(--foreground);
   --border: oklch(0.2 0.03 180);
-  --input: var(--card);
+  --input: oklch(27.334% 0.04261 177.569);
   --ring: var(--primary);
   --chart-1: var(--primary);
   --chart-2: oklch(0.65 0.15 155);
@@ -122,3 +131,4 @@
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 }
+/* cores comentadas sao duvidas podem mudar  */

@@ -22,16 +22,16 @@ export default function RootLayoutPrivate({
   children: React.ReactNode
 }>) {
   return (
-    <div className={cn(geistSans.variable, geistMono.variable)}>
+    <div className={cn(geistSans.variable, geistMono.variable, 'bg-background')}>
       <SidebarProvider>
         <AppSideBar />
         <main className="w-full ">
-          <div className=" top-0 z-40 w-full border-b  ">
+          <div className="top-0 z-40 w-full border-b  ">
             <NavBarHeader />
           </div>
-          <div className="p-4">
+          <div className="p-1">
             <SidebarTrigger />
-            {children}
+            <div className="container mx-auto px-3 ">{children}</div>
           </div>
         </main>
       </SidebarProvider>
