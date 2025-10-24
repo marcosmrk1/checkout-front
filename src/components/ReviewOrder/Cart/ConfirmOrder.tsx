@@ -8,9 +8,7 @@ import { useRouter } from 'next/navigation'
 const ConfirmOrder = () => {
   const router = useRouter()
 
-  const handleConfirm = () => {
-    console.log('Pedido confirmado!')
-  }
+  const handleConfirm = () => {}
 
   const handleBack = () => {
     router.push('/catalog')

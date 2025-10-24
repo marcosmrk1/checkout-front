@@ -1,5 +1,5 @@
 export interface IResponse<T> {
-  data: Array<T> | null
+  data: T | null
   success: boolean
   message: string
 

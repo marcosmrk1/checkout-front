@@ -64,8 +64,8 @@ export function useGetAllProducts() {
       setLoading(true)
       setError(null)
       try {
+        await wait(300)
         await fetch(ROUTE_PRODUCT_API).catch(() => {})
-        await wait(500)
         localStorage.setItem(LOCAL_STORAGE_PRODUCTS, JSON.stringify(product))
         const storedProducts = localStorage.getItem(LOCAL_STORAGE_PRODUCTS)
         setData(storedProducts ? JSON.parse(storedProducts) : [])
