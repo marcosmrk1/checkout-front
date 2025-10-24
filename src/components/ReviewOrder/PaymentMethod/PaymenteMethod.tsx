@@ -9,7 +9,10 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion'
 import { ChevronDown, ChevronUp, CreditCard, QrCode, Barcode } from 'lucide-react'
-import { IMethodDescriptionSelect, IMethodsPayment } from '@/@interface/IMethodsPayment'
+import {
+  IMethodDescriptionSelect,
+  IMethodsPayment,
+} from '@/@interface/models/IMethodsPayment'
 import { Card } from '@/components/ui/card'
 import { CardForm } from '@/components/ReviewOrder/PaymentMethod/Form/Card'
 

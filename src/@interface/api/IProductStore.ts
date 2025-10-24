@@ -1,0 +1,9 @@
+export interface IProductStore {
+  id: number
+  name: string
+  price: number
+  description: string
+  image: string
+  star: number
+  category: string
+}

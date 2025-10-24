@@ -1,0 +1,15 @@
+export interface IResponse<T> {
+  data: Array<T> | null
+  success: boolean
+  message: string
+
+  loading: boolean
+  statusCode: number
+  timestamp: string
+  errors: string[]
+  meta?: {
+    total?: number
+    page?: number
+    perPage?: number
+  }
+}
