@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import '@/app/globals.css'
 import { cn } from '@/lib/utils'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import { ThemeProvider } from 'next-themes'
 import { AppSideBar } from '@/components/Menu/AppSideBar'
 import { NavBarHeader } from '@/components/Menu/NavBar'
 

@@ -9,7 +9,7 @@ import { GenericLoading } from '@/components/Generic/Loading'
 import {
   useAddQuantityProduct,
   useDecreaseQuantityProduct,
-} from '@/api/service/hooks/cart/patch/usePatchCart'
+} from '@/api/service/hooks/cart/patch/usePatchQuantity'
 import { ICartItem } from '@/@interface/api/ICart'
 import { IProduct } from '@/@interface/api/IProduct'
 import { useDeleteRemoveItemCard } from '@/api/service/hooks/cart/del/useDeletarProductCart'

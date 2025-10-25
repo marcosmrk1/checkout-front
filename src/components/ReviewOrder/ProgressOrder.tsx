@@ -10,6 +10,7 @@ import { ConfirmOrder } from '@/components/ReviewOrder/Cart/ConfirmOrder'
 import { Card } from '@/components/ui/card'
 import { PaymentMethodSelector } from '@/components/ReviewOrder/PaymentMethod/MethodSelect'
 import { ReviewCompletRequestCart } from '@/components/ReviewOrder/Cart/ReviewCompletRequest'
+import { PaymentSlip } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentSlip'
 
 interface Step {
   id: number
@@ -43,11 +44,13 @@ interface CheckoutStepperProps {
   currentStep?: number
 }
 const showreviewScreen = (currenteStep: number) => {
-  switch (currenteStep) {
+  switch ((currenteStep = 3)) {
     case 1:
       return <ReviewCompletRequestCart />
     case 2:
       return <PaymentMethodSelector />
+    case 3:
+      return <PaymentSlip />
   }
 }
 const ProgressOrderStep = ({ currentStep = 1 }: CheckoutStepperProps) => {

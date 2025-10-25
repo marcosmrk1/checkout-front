@@ -1,13 +1,17 @@
 import { IProduct } from '@/@interface/api/IProduct'
 
-import { ICart, ICartItem } from '@/@interface/api/ICart'
+import { ICart, ICartItem, ORDER_REVIEW } from '@/@interface/api/ICart'
 
 export const LOCA_STORAGE_CART = 'checkout:cart'
-
+const initialValuesCart = {
+  itens: [] as ICartItem[],
+  total: 0,
+  orderReview: ORDER_REVIEW.REVIEW_CART,
+}
 export function getCart(): ICart {
-  if (typeof window === 'undefined') return { itens: [], total: 0 }
+  if (typeof window === 'undefined') return initialValuesCart
   const cart = localStorage.getItem(LOCA_STORAGE_CART)
-  if (!cart) return { itens: [], total: 0 }
+  if (!cart) return initialValuesCart
 
   const parsed = JSON.parse(cart)
   if (Array.isArray(parsed)) {
@@ -15,10 +19,10 @@ export function getCart(): ICart {
       (acc, el) => acc + el.product.price * el.quantity,
       0,
     )
-    return { itens: parsed, total: totalPrice }
+    return { itens: parsed, total: totalPrice, orderReview: ORDER_REVIEW.REVIEW_CART }
   }
   localStorage.removeItem(LOCA_STORAGE_CART)
-  return { itens: [], total: 0 }
+  return initialValuesCart
 }
 
 export function setCart(cart: ICart) {
@@ -78,4 +82,11 @@ export function decreaseProductQuantity(productId: number) {
 
 export function AddProductQuantity(productId: number) {
   return updateProductQuantity(productId, 1)
+}
+
+export function updateOrderReview(orderReview: ORDER_REVIEW) {
+  const cart = getCart()
+  cart.orderReview = orderReview
+  setCart(cart)
+  return cart
 }
