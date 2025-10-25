@@ -3,7 +3,7 @@ import { IProduct } from '@/@interface/api/IProduct'
 import { ICart, ICartItem, ORDER_REVIEW } from '@/@interface/api/ICart'
 
 export const LOCA_STORAGE_CART = 'checkout:cart'
-const initialValuesCart = {
+const initialValuesCart: ICart = {
   itens: [] as ICartItem[],
   total: 0,
   orderReview: ORDER_REVIEW.REVIEW_CART,
@@ -84,7 +84,13 @@ export function AddProductQuantity(productId: number) {
   return updateProductQuantity(productId, 1)
 }
 
-export function updateOrderReview(orderReview: ORDER_REVIEW) {
+export function updateOrderReview(
+  orderReview:
+    | ORDER_REVIEW.REVIEW_CART
+    | ORDER_REVIEW.METHOD_PAYMENT
+    | ORDER_REVIEW.CONFIRM_ORDER
+    | ORDER_REVIEW.EXPIRED_ORDER,
+) {
   const cart = getCart()
   cart.orderReview = orderReview
   setCart(cart)

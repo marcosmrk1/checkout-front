@@ -1,16 +1,13 @@
 'use client'
 
-import { Check, MapPin, Package, CreditCard, ShoppingCart } from 'lucide-react'
+import { Check, MapPin, Package } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { TimeBuy } from '@/components/ReviewOrder/Cart/TimeBuy'
-import { OrderReview } from '@/components/ReviewOrder/Cart/OrderReview'
-import { UserReadingCard } from '@/components/Shared/UserReading'
-import { ConfirmOrder } from '@/components/ReviewOrder/Cart/ConfirmOrder'
-
-import { Card } from '@/components/ui/card'
 import { PaymentMethodSelector } from '@/components/ReviewOrder/PaymentMethod/MethodSelect'
 import { ReviewCompletRequestCart } from '@/components/ReviewOrder/Cart/ReviewCompletRequest'
-import { PaymentSlip } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentSlip'
+import { CheckAllMethodsCheck } from '@/components/ReviewOrder/CheckoutConfirmed/CheckAllMethodsCheck'
+import { GenericLoading } from '@/components/Generic/Loading'
+import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import { ORDER_REVIEW } from '@/@interface/api/ICart'
 
 interface Step {
   id: number
@@ -40,20 +37,35 @@ const steps: Step[] = [
   },
 ]
 
-interface CheckoutStepperProps {
-  currentStep?: number
-}
 const showreviewScreen = (currenteStep: number) => {
-  switch ((currenteStep = 3)) {
+  switch (currenteStep) {
     case 1:
       return <ReviewCompletRequestCart />
     case 2:
       return <PaymentMethodSelector />
     case 3:
-      return <PaymentSlip />
+      return <CheckAllMethodsCheck />
   }
 }
-const ProgressOrderStep = ({ currentStep = 1 }: CheckoutStepperProps) => {
+const ProgressOrderStep = () => {
+  const { data } = useGetAllCartProducts()
+  if (!data) return <GenericLoading />
+
+  let currentStep = 1
+  switch (data.orderReview) {
+    case ORDER_REVIEW.REVIEW_CART:
+      currentStep = 1
+      break
+    case ORDER_REVIEW.METHOD_PAYMENT:
+      currentStep = 2
+      break
+    case ORDER_REVIEW.CONFIRM_ORDER:
+      currentStep = 3
+      break
+    default:
+      currentStep = 1
+  }
+
   return (
     <div className="w-full py-8">
       <div className="relative flex items-start justify-between">
