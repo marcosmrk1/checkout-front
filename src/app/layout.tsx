@@ -1,3 +1,4 @@
+import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import { ToastContainer } from 'react-toastify'
 

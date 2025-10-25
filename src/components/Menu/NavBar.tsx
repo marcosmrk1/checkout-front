@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Badge } from '@/components/ui/badge'
 import { CartItemsList } from '@/components/Menu/CartItemsList'
+import { signOut } from 'next-auth/react'
 
 const NavBarHeader = () => {
   const [cartItemsCount] = useState(3)
@@ -105,7 +106,10 @@ const NavBarHeader = () => {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive cursor-pointer">
+            <DropdownMenuItem
+              className="text-destructive cursor-pointer"
+              onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}
+            >
               <LogOut className="mr-2 h-4 w-4" />
               <span>Sair</span>
             </DropdownMenuItem>
