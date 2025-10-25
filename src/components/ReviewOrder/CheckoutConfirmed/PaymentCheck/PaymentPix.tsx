@@ -14,7 +14,7 @@ const PaymentPix = () => {
   const handleConfirm = () => {
     setLoading(true)
     // const { success: confirmSuccess } = usePatchOrderReviewCart(
-    //   ORDER_REVIEW.CONFIRM_ORDER,
+    //   ORDER_REVIEW.WAIT_CONFIRM,
     // )
     // setTimeout(() => {
     //   setLoading(false)

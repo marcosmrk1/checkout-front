@@ -1,6 +1,6 @@
 import { IProduct } from '@/@interface/api/IProduct'
 
-import { ICart, ICartItem, ORDER_REVIEW } from '@/@interface/api/ICart'
+import { ICart, ICartItem, ORDER_REVIEW, METHOD_PAYMENT } from '@/@interface/api/ICart'
 
 export const LOCA_STORAGE_CART = 'checkout:cart'
 const initialValuesCart: ICart = {
@@ -23,6 +23,7 @@ export function getCart(): ICart {
       itens: parsed.itens,
       total: parsed.total ?? totalPrice,
       orderReview: parsed.orderReview ?? ORDER_REVIEW.REVIEW_CART,
+      metodPayment: parsed.metodPayment,
     }
   }
   localStorage.removeItem(LOCA_STORAGE_CART)
@@ -91,11 +92,23 @@ export function AddProductQuantity(productId: number) {
 export function updateOrderReview(
   orderReview:
     | ORDER_REVIEW.REVIEW_CART
-    | ORDER_REVIEW.CONFIRM_ORDER
+    | ORDER_REVIEW.WAIT_CONFIRM
     | ORDER_REVIEW.EXPIRED_ORDER,
 ) {
   const cart = getCart()
   cart.orderReview = orderReview
+  setCart(cart)
+  return cart
+}
+
+export function updateMethodPayment(
+  metodPayment:
+    | METHOD_PAYMENT.CREDIT_CARD
+    | METHOD_PAYMENT.PIX
+    | METHOD_PAYMENT.PAYMENT_SLIP,
+) {
+  const cart = getCart()
+  cart.metodPayment = metodPayment
   setCart(cart)
   return cart
 }

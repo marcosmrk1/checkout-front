@@ -16,6 +16,7 @@ import { GenericLoading } from '@/components/Generic/Loading'
 import { usePatchOrderReviewCart } from '@/api/service/hooks/cart/patch/usePatchOrderReview'
 import { useEffect, useState } from 'react'
 import { ShowGenericToast } from '@/components/Generic/SuccessToast'
+import { usePatchMethodPayment } from '@/api/service/hooks/cart/patch/usePatchMethodPayment'
 
 interface ButtonProps {
   backLabel?: string
@@ -68,15 +69,14 @@ const NextStepButtons = ({
         type: 'error',
         message: 'Selecione um método de pagamento para continuar.',
       })
-      return
     }
-    if (progressOrder === URL_PAYMENT_STEP) {
-      const response = await usePatchOrderReviewCart(ORDER_REVIEW.CONFIRM_ORDER)
-      if (response.loading) return <GenericLoading />
-      if (response.success) {
+
+    if (methodPayment && progressOrder === URL_PAYMENT_STEP) {
+      const responseMethodPayment = await usePatchMethodPayment(methodPayment)
+      if (responseMethodPayment.loading) return <GenericLoading />
+      if (responseMethodPayment.success) {
         router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
       }
-      return
     }
   }
 

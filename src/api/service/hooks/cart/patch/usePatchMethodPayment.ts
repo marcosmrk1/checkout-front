@@ -1,28 +1,23 @@
-import { ICart, ORDER_REVIEW } from '@/@interface/api/ICart'
+import { ICart, METHOD_PAYMENT, ORDER_REVIEW } from '@/@interface/api/ICart'
 import { IResponse } from '@/@interface/response/Iresponse'
 import { ShowGenericToast } from '@/components/Generic/SuccessToast'
-import { updateOrderReview } from '@/utils/localStorage/Cart'
+import { updateMethodPayment, updateOrderReview } from '@/utils/localStorage/Cart'
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
-export async function usePatchOrderReviewCart(
-  orderReview: ORDER_REVIEW,
+export async function usePatchMethodPayment(
+  methodPayment: METHOD_PAYMENT,
 ): Promise<IResponse<ICart>> {
   let loading = true
   try {
     await wait(500)
     loading = false
-    const changeOrderReview = updateOrderReview(orderReview)
-    console.log('o q vem do usePatch:', orderReview)
-    if (orderReview === ORDER_REVIEW.WAIT_CONFIRM) {
-      ShowGenericToast({ type: 'success' })
-    }
-    if (orderReview === ORDER_REVIEW.EXPIRED_ORDER) {
-      ShowGenericToast({
-        type: 'error',
-        message:
-          'O tempo para finalizar o pedido expirou. Por favor, reinicie seu pedido.',
-      })
-    }
+    const changeOrderReview = updateOrderReview(ORDER_REVIEW.WAIT_CONFIRM)
+    const changeUpdateMethodPayment = updateMethodPayment(methodPayment)
+    ShowGenericToast({
+      type: 'success',
+      message: 'Seu pedido foi realizado com sucesso!',
+    })
+
     return {
       data: changeOrderReview,
       success: true,

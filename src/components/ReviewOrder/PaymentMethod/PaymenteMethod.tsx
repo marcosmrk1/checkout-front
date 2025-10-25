@@ -49,9 +49,7 @@ const methodsPayment: IMethodDescriptionSelect[] = [
   },
 ]
 
-const PaymentMethod = ({ setMethodPayment }: IPaymentMethodProps) => {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-
+const PaymentMethod = ({ methodPayment, setMethodPayment }: IPaymentMethodProps) => {
   const handleSelect = (paymenteMethod: METHOD_PAYMENT) => {
     setMethodPayment(paymenteMethod)
   }
@@ -61,8 +59,15 @@ const PaymentMethod = ({ setMethodPayment }: IPaymentMethodProps) => {
       <Accordion
         type="single"
         collapsible
-        value={selectedIndex ? String(selectedIndex) : undefined}
-        onValueChange={(v) => setSelectedIndex(v ? Number(v) : null)}
+        value={
+          methodsPayment.find((m) => m.method === methodPayment)?.id
+            ? String(methodsPayment.find((m) => m.method === methodPayment)!.id)
+            : undefined
+        }
+        onValueChange={(v) => {
+          const method = methodsPayment.find((m) => String(m.id) === v)
+          if (method) setMethodPayment(method.method)
+        }}
       >
         {methodsPayment.map((method) => (
           <AccordionItem
@@ -74,7 +79,7 @@ const PaymentMethod = ({ setMethodPayment }: IPaymentMethodProps) => {
               <div className="flex items-center gap-3">
                 <input
                   type="checkbox"
-                  checked={selectedIndex === method.id}
+                  checked={methodPayment === method.method}
                   onChange={() => handleSelect(method.method)}
                   className="checkbox-custom"
                   style={{
