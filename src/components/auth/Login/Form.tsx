@@ -118,7 +118,7 @@ const LoginForm = () => {
       <Button
         variant="outline"
         className="w-full flex items-center justify-center space-x-2 py-3 0"
-        onClick={() => console.log('Continuing with Google...')}
+        onClick={() => signIn('google', { callbackUrl: '/catalog' })}
       >
         <svg className="w-5 h-5" viewBox="0 0 24 24">
           <path
