@@ -15,7 +15,7 @@ import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCar
 import { GenericLoading } from '@/components/Generic/Loading'
 import { usePatchOrderReviewCart } from '@/api/service/hooks/cart/patch/usePatchOrderReview'
 import { useEffect, useState } from 'react'
-import { ShowGenericToast } from '@/components/Generic/SuccessToast'
+import { ShowGenericToast } from '@/components/Generic/Toast'
 import { usePatchMethodPayment } from '@/api/service/hooks/cart/patch/usePatchMethodPayment'
 
 interface ButtonProps {

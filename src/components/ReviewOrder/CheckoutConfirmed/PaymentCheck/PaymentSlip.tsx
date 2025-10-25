@@ -1,6 +1,6 @@
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
 import { usePatchOrderReviewCart } from '@/api/service/hooks/cart/patch/usePatchOrderReview'
-import { TimeBuy } from '@/components/ReviewOrder/Cart/TimeBuy'
+import { TimeBuy } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentCheck/TimeBuy'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Barcode } from 'lucide-react'
@@ -24,7 +24,6 @@ const PaymentSlip = () => {
 
   return (
     <Card className="max-w-lg mx-auto mt-10 shadow-lg">
-      <TimeBuy />
       <div className="flex flex-col items-center justify-center p-8 gap-4">
         <div className="flex flex-col items-center mb-2">
           <Barcode className="h-20 w-32 mb-2 text-primary" />

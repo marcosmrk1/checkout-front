@@ -1,19 +1,29 @@
+'use client'
 import { URL_KART_STEP, URL_PROGRESS_ORDER } from '@/@URLQueries/progressOrderStep'
 import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
+import { ShowGenericToast } from '@/components/Generic/Toast'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { DropdownMenuItem, DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu'
 import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const CartItemsList = () => {
   const { data, loading } = useGetAllCartProducts()
-
+  const router = useRouter()
   if (loading) {
     return <GenericLoading />
   }
-
+  const redirectReviewOrder = () => {
+    const productInCart = data?.itens?.length === 0
+    if (productInCart) {
+      ShowGenericToast({ message: 'Seu carrinho está vazio.', type: 'error' })
+      return
+    }
+    return router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_KART_STEP}`)
+  }
   return (
     <>
       <div className="max-h-[300px] overflow-y-auto">
@@ -51,14 +61,11 @@ const CartItemsList = () => {
             R$ {data?.total?.toFixed(2).replace('.', ',') || '0,00'}
           </span>
         </div>
-        <Button className="w-full" asChild>
-          <Link
-            href={`/review-order?${URL_PROGRESS_ORDER}=${URL_KART_STEP}`}
-            className="flex items-center justify-center gap-2"
-          >
+        <Button className="w-full" onClick={redirectReviewOrder}>
+          <span className="flex items-center justify-center gap-2">
             <ShoppingCart className="h-4 w-4" />
             Finalizar Compra
-          </Link>
+          </span>
         </Button>
       </div>
     </>

@@ -6,7 +6,7 @@ import {
 import { IProduct } from '@/@interface/api/IProduct'
 import { ICart } from '@/@interface/api/ICart'
 import { IResponse } from '@/@interface/response/Iresponse'
-import { ShowGenericToast } from '@/components/Generic/SuccessToast'
+import { ShowGenericToast } from '@/components/Generic/Toast'
 
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
 

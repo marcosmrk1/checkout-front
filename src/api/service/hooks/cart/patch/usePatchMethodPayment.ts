@@ -1,6 +1,6 @@
 import { ICart, METHOD_PAYMENT, ORDER_REVIEW } from '@/@interface/api/ICart'
 import { IResponse } from '@/@interface/response/Iresponse'
-import { ShowGenericToast } from '@/components/Generic/SuccessToast'
+import { ShowGenericToast } from '@/components/Generic/Toast'
 import { updateMethodPayment, updateOrderReview } from '@/utils/localStorage/Cart'
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
