@@ -4,13 +4,11 @@ import { Card } from '@/components/ui/card'
 import { useEffect, useState } from 'react'
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
 import { usePatchOrderReviewCart } from '@/api/service/hooks/cart/patch/usePatchOrderReview'
-import OrderExpired from '@/components/ReviewOrder/statusFinalOrder/expired'
 interface TimeBuyProps {
-  setRefresh: React.Dispatch<React.SetStateAction<number>>
   setExpired: React.Dispatch<React.SetStateAction<boolean>>
 }
-const TimeBuy = ({ setRefresh, setExpired }: TimeBuyProps) => {
-  const [timeLeft, setTimeLeft] = useState(1 * 1)
+const TimeBuy = ({ setExpired }: TimeBuyProps) => {
+  const [timeLeft, setTimeLeft] = useState(30 * 1)
   const [localExpired, setLocalExpired] = useState(false)
 
   useEffect(() => {
@@ -35,7 +33,6 @@ const TimeBuy = ({ setRefresh, setExpired }: TimeBuyProps) => {
 
     return () => clearInterval(timer)
   }, [timeLeft, localExpired, setExpired])
-  // Não renderiza OrderExpired aqui, pois o pai já faz isso
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)

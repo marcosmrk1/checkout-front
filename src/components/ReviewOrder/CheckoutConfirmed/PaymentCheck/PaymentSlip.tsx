@@ -6,20 +6,21 @@ import { Card } from '@/components/ui/card'
 import { Barcode } from 'lucide-react'
 
 import { useState } from 'react'
-
-const PaymentSlip = () => {
+interface PaymentSlipProps {
+  setRefresh: React.Dispatch<React.SetStateAction<number>>
+}
+const PaymentSlip = ({ setRefresh }: PaymentSlipProps) => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setLoading(true)
-    // const { success: confirmSuccess } = usePatchOrderReviewCart(mutete(
-    //   ORDER_REVIEW.WAIT_CONFIRM),
-    // )
-    // setTimeout(() => {
-    //   setLoading(false)
-    //   setSuccess(confirmSuccess)
-    // }, 800)
+    const response = await usePatchOrderReviewCart(ORDER_REVIEW.CONFIRMED_ORDER)
+    setTimeout(() => {
+      setLoading(false)
+      setSuccess(response.success)
+      if (response.success) setRefresh((prev) => prev + 1)
+    }, 800)
   }
 
   return (

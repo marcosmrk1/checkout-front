@@ -12,8 +12,10 @@ export async function usePatchOrderReviewCart(
     await wait(500)
     loading = false
     const changeOrderReview = updateOrderReview(orderReview)
-    console.log('o q vem do usePatch:', orderReview)
-    if (orderReview === ORDER_REVIEW.WAIT_CONFIRM) {
+    if (
+      orderReview === ORDER_REVIEW.WAIT_CONFIRM ||
+      orderReview === ORDER_REVIEW.CONFIRMED_ORDER
+    ) {
       ShowGenericToast({ type: 'success' })
     }
     if (orderReview === ORDER_REVIEW.EXPIRED_ORDER) {

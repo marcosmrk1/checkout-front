@@ -3,20 +3,20 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
 import { usePatchOrderReviewCart } from '@/api/service/hooks/cart/patch/usePatchOrderReview'
-
-const PaymenteCreditCard = () => {
+interface PaymenteCreditCardProps {
+  setRefresh: React.Dispatch<React.SetStateAction<number>>
+}
+const PaymenteCreditCard = ({ setRefresh }: PaymenteCreditCardProps) => {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setLoading(true)
-    // const { success: confirmSuccess } = usePatchOrderReviewCart(
-    //   ORDER_REVIEW.WAIT_CONFIRM,
-    // )
-    // setTimeout(() => {
-    //   setLoading(false)
-    //   setSuccess(confirmSuccess)
-    // }, 800)
+    const response = await usePatchOrderReviewCart(ORDER_REVIEW.CONFIRMED_ORDER)
+    setTimeout(() => {
+      setLoading(false)
+      setSuccess(response.success)
+    }, 800)
   }
 
   return (
