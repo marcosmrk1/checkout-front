@@ -36,7 +36,7 @@ const ThemeSwitcher = () => {
           }`}
         >
           <span
-            className={`absolute block w-5 h-5 bg-white rounded-full top-[2px] flex items-center justify-center transition-transform duration-300 ease-in-out ${
+            className={`absolute block w-5 h-5 bg-white rounded-full  x items-center justify-center transition-transform duration-300 ease-in-out ${
               isDark ? 'translate-x-[29px]' : 'translate-x-[2px]'
             }`}
           >

@@ -1,7 +1,13 @@
-import NextAuth, { getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import GoogleProvider from 'next-auth/providers/google'
 import { redirect } from 'next/navigation'
+import NextAuth from 'next-auth'
 
+const users = [
+  { id: '1', name: 'Marco', email: 'marcospl.134@gmaill.com', password: '1234' },
+  { id: '2', name: 'Usuário Teste', email: 'teste@gmail', password: '1234' },
+]
 const authOptions = {
   pages: {
     signIn: '/login',
@@ -13,19 +19,27 @@ const authOptions = {
         email: { label: 'email', type: 'email', placeholder: 'jsmith' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           return null
         }
-        if (credentials.email === 'teste@gmail' && credentials.password === '1234') {
-          return { id: '1', name: 'Usuário Teste', email: 'teste@gmail' }
-        } else {
-          return null
+        const user = users.find(
+          (u) => u.email === credentials.email && u.password === credentials.password,
+        )
+        if (user) {
+          const { password, ...userWithoutPassword } = user
+          return userWithoutPassword
         }
+        return null
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
 }
+
 export const redirectIfNoSession = async () => {
   const session = await getServerSession(authOptions)
   if (!session) {
