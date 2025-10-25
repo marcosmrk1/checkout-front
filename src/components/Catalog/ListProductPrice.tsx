@@ -16,7 +16,6 @@ import { useState } from 'react'
 const ListProductPrice = () => {
   const { data, loading, errors, success } = useGetAllProducts()
   if (loading) return <GenericLoading />
-
   if (!success) {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-red-500">

@@ -1,4 +1,4 @@
-import { ConfirmOrder } from '@/components/ReviewOrder/Cart/ConfirmOrder'
+import { NextStepButtons } from '@/components/ReviewOrder/NextStepButtons'
 import { OrderReview } from '@/components/ReviewOrder/Cart/OrderReview'
 import { OrderSummary } from '@/components/ReviewOrder/Cart/OrderSummary'
 import { TimeBuy } from '@/components/ReviewOrder/Cart/TimeBuy'
@@ -8,6 +8,7 @@ import { useState } from 'react'
 
 const ReviewCompletRequestCart = () => {
   const [refresh, setRefresh] = useState(0)
+
   return (
     <div className="container grid grid-cols-12 gap-4  ">
       <div className="col-span-12 md:col-span-7 flex flex-col gap-4">
@@ -17,7 +18,7 @@ const ReviewCompletRequestCart = () => {
       <div className="col-span-12 md:col-span-5 flex flex-col gap-4">
         <UserReadingCard />
         <OrderSummary refresh={refresh} />
-        <ConfirmOrder />
+        <NextStepButtons backLabel="Voltar ao carrinho" />
       </div>
     </div>
   )

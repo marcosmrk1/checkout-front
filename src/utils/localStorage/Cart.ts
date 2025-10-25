@@ -14,19 +14,23 @@ export function getCart(): ICart {
   if (!cart) return initialValuesCart
 
   const parsed = JSON.parse(cart)
-  if (Array.isArray(parsed)) {
-    const totalPrice = parsed.reduce(
-      (acc, el) => acc + el.product.price * el.quantity,
+  if (parsed && Array.isArray(parsed.itens)) {
+    const totalPrice = parsed.itens.reduce(
+      (acc: number, el: ICartItem) => acc + el.product.price * el.quantity,
       0,
     )
-    return { itens: parsed, total: totalPrice, orderReview: ORDER_REVIEW.REVIEW_CART }
+    return {
+      itens: parsed.itens,
+      total: parsed.total ?? totalPrice,
+      orderReview: parsed.orderReview ?? ORDER_REVIEW.REVIEW_CART,
+    }
   }
   localStorage.removeItem(LOCA_STORAGE_CART)
   return initialValuesCart
 }
 
 export function setCart(cart: ICart) {
-  localStorage.setItem(LOCA_STORAGE_CART, JSON.stringify(cart.itens))
+  localStorage.setItem(LOCA_STORAGE_CART, JSON.stringify(cart))
 }
 
 export function addToCart(product: IProduct) {
@@ -87,7 +91,6 @@ export function AddProductQuantity(productId: number) {
 export function updateOrderReview(
   orderReview:
     | ORDER_REVIEW.REVIEW_CART
-    | ORDER_REVIEW.METHOD_PAYMENT
     | ORDER_REVIEW.CONFIRM_ORDER
     | ORDER_REVIEW.EXPIRED_ORDER,
 ) {

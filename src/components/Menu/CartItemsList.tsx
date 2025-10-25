@@ -1,3 +1,4 @@
+import { URL_KART_STEP, URL_PROGRESS_ORDER } from '@/@URLQueries/progressOrderStep'
 import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { Badge } from '@/components/ui/badge'
@@ -12,7 +13,6 @@ const CartItemsList = () => {
   if (loading) {
     return <GenericLoading />
   }
-  // Calcula o total do carrinho
 
   return (
     <>
@@ -52,7 +52,10 @@ const CartItemsList = () => {
           </span>
         </div>
         <Button className="w-full" asChild>
-          <Link href="/review-order" className="flex items-center justify-center gap-2">
+          <Link
+            href={`/review-order?${URL_PROGRESS_ORDER}=${URL_KART_STEP}`}
+            className="flex items-center justify-center gap-2"
+          >
             <ShoppingCart className="h-4 w-4" />
             Finalizar Compra
           </Link>

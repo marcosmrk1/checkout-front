@@ -1,7 +1,6 @@
 import { IProduct } from '@/@interface/api/IProduct'
 export enum ORDER_REVIEW {
   REVIEW_CART = 'reviewCart',
-  METHOD_PAYMENT = 'metodPayment',
   CONFIRM_ORDER = 'confirmOrder',
   EXPIRED_ORDER = 'expiredOrder',
 }
@@ -19,7 +18,6 @@ export interface ICart {
   total: number
   orderReview:
     | ORDER_REVIEW.REVIEW_CART
-    | ORDER_REVIEW.METHOD_PAYMENT
     | ORDER_REVIEW.CONFIRM_ORDER
     | ORDER_REVIEW.EXPIRED_ORDER
   metodPayment?:

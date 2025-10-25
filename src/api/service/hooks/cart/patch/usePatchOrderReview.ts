@@ -4,18 +4,15 @@ import { ShowGenericToast } from '@/components/Generic/SuccessToast'
 import { updateOrderReview } from '@/utils/localStorage/Cart'
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
-export function usePatchOrderReviewCart(
-  orderReview:
-    | ORDER_REVIEW.REVIEW_CART
-    | ORDER_REVIEW.METHOD_PAYMENT
-    | ORDER_REVIEW.CONFIRM_ORDER
-    | ORDER_REVIEW.EXPIRED_ORDER,
-): IResponse<ICart> {
+export async function usePatchOrderReviewCart(
+  orderReview: ORDER_REVIEW,
+): Promise<IResponse<ICart>> {
+  let loading = true
   try {
-    let loading = true
-    wait(500)
+    await wait(500)
     loading = false
     const changeOrderReview = updateOrderReview(orderReview)
+    console.log('o q vem do usePatch:', orderReview)
     if (orderReview === ORDER_REVIEW.CONFIRM_ORDER) {
       ShowGenericToast({ type: 'success' })
     }
@@ -26,7 +23,6 @@ export function usePatchOrderReviewCart(
           'O tempo para finalizar o pedido expirou. Por favor, reinicie seu pedido.',
       })
     }
-
     return {
       data: changeOrderReview,
       success: true,
@@ -37,12 +33,13 @@ export function usePatchOrderReviewCart(
       timestamp: new Date().toISOString(),
     }
   } catch (error) {
+    loading = false
     return {
       data: null,
       success: false,
       message: 'Erro ao adicionar produto ao carrinho.',
       errors: [String(error)],
-      loading: false,
+      loading,
       statusCode: 500,
       timestamp: new Date().toISOString(),
     }
