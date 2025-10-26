@@ -16,6 +16,7 @@ import { use, useEffect, useState } from 'react'
 import { getCreditCardInfo } from '@/utils/localStorage/CreditCard'
 import { ShowGenericToast } from '@/components/Generic/Toast'
 import usePatchMethodPayment from '@/api/service/hooks/cart/patch/usePatchMethodPayment'
+import useGetCreditCard from '@/api/service/hooks/creditCart/useGet/useGetCreditCard'
 
 interface ButtonProps {
   backLabel?: string
@@ -28,6 +29,7 @@ const NextStepButtons = ({
   methodPayment,
 }: ButtonProps) => {
   const { handleChangeMethodPayment, loading } = usePatchMethodPayment()
+  const { data, loading: loadingCardCredit } = useGetCreditCard()
   const router = useRouter()
   const searchParams = useSearchParams()
   const progressOrder = searchParams.get(URL_PROGRESS_ORDER)
@@ -66,12 +68,11 @@ const NextStepButtons = ({
   }
 
   const creditCartMethodRules = () => {
-    const cardCreditUser = getCreditCardInfo()
     if (
       progressOrder === URL_PAYMENT_STEP &&
       methodPayment === METHOD_PAYMENT.CREDIT_CARD
     ) {
-      if (!cardCreditUser) {
+      if (!data?.last4Number) {
         ShowGenericToast({
           type: 'error',
           message:
@@ -79,17 +80,15 @@ const NextStepButtons = ({
         })
         return false
       }
-      if (cardCreditUser?.last4Number) {
-        ShowGenericToast({
-          type: 'success',
-          message: 'Método de pagamento salvo com sucesso!',
-        })
+      if (data?.last4Number) {
         router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
       }
     }
     return true
   }
-
+  if (loadingCardCredit) {
+    return <GenericLoading loadingMessage="Carregando informações do usuário" />
+  }
   return (
     <Card className="w-full rounded-md p-4 bg-card border-transparent">
       <div className="flex   gap-3 w-full ">

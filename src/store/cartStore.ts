@@ -22,12 +22,12 @@ interface CartState {
   loading: boolean
   errors: string[] // <-- Adicione esta linha
 
-  patchMethodPayment: (methodPayment: METHOD_PAYMENT) => void
-  patchOrderReviewCart: (orderReview: ORDER_REVIEW) => void
-  deleteItemCart: (productId: number) => void
-  addProduct: (product: IProduct) => void
-  removeQuantityProductCart: (product: IProduct) => void
-  addQuantityProductCart: (product: IProduct) => void
+  patchMethodPayment: (methodPayment: METHOD_PAYMENT) => Promise<any>
+  patchOrderReviewCart: (orderReview: ORDER_REVIEW) => Promise<any>
+  deleteItemCart: (productId: number) => Promise<any>
+  addProduct: (product: IProduct) => Promise<any>
+  removeQuantityProductCart: (product: IProduct) => Promise<any>
+  addQuantityProductCart: (product: IProduct) => Promise<any>
 }
 
 const cartInitialValues: IResponse<ICart> = {
@@ -61,7 +61,6 @@ export const useCartStoreReview = create<CartState>((set, get) => ({
         success: false,
       })
     }
-    // Aqui pode resetar, pois é só carregamento
     set({ success: false })
   },
 
@@ -75,12 +74,11 @@ export const useCartStoreReview = create<CartState>((set, get) => ({
       } else {
         set({ errors: [response.message], loading: false, success: false })
       }
-      return response
+      return { success: response.success, response }
     } catch (err: any) {
       set({ errors: [err.message], loading: false, success: false })
-      return { success: false, message: err.message }
+      return { success: false, message: err.message, response: null }
     }
-    // NÃO resetar aqui!
   },
 
   deleteItemCart: async (productId: number) => {
@@ -89,10 +87,10 @@ export const useCartStoreReview = create<CartState>((set, get) => ({
       const response = await deleteproductCart(productId)
       await get().fetchCart()
       set({ loading: false, success: true })
-      return response
+      return { success: true, response }
     } catch (err: any) {
       set({ success: false, loading: false })
-      return { success: false, message: err.message }
+      return { success: false, message: err.message, response: null }
     }
   },
 
@@ -107,10 +105,10 @@ export const useCartStoreReview = create<CartState>((set, get) => ({
         loading: false,
         success: cartResponse.success,
       })
-      return response
+      return { success: response.success, response }
     } catch (err: any) {
       set({ success: false, loading: false })
-      return { success: false, message: err.message }
+      return { success: false, message: err.message, response: null }
     }
   },
 
@@ -125,10 +123,10 @@ export const useCartStoreReview = create<CartState>((set, get) => ({
         loading: false,
         success: cartResponse.success,
       })
-      return response
+      return { success: response.success, response }
     } catch (err: any) {
       set({ success: false, loading: false })
-      return { success: false, message: err.message }
+      return { success: false, message: err.message, response: null }
     }
   },
 
@@ -143,10 +141,10 @@ export const useCartStoreReview = create<CartState>((set, get) => ({
         loading: false,
         success: cartResponse.success,
       })
-      return response
+      return { success: response.success, response }
     } catch (err: any) {
       set({ success: false, loading: false })
-      return { success: false, message: err.message }
+      return { success: false, message: err.message, response: null }
     }
   },
 
@@ -160,10 +158,10 @@ export const useCartStoreReview = create<CartState>((set, get) => ({
       } else {
         set({ loading: false, success: false })
       }
-      return response
+      return { success: response.success, response }
     } catch (err: any) {
       set({ success: false, loading: false })
-      return { success: false, message: err.message }
+      return { success: false, message: err.message, response: null }
     }
   },
 }))

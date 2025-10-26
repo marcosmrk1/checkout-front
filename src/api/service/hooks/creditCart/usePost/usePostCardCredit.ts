@@ -1,36 +1,36 @@
-import { IResponse } from '@/@interface/response/Iresponse'
+import { useCartStoreReview } from '@/store/cartStore'
 import { ShowGenericToast } from '@/components/Generic/Toast'
-import { ICreditCard } from '@/@interface/api/ICardCredit'
-import { addCreditCardInfo } from '@/utils/localStorage/CreditCard'
+import { useCallback } from 'react'
+import { IProduct } from '@/@interface/api/IProduct'
+import { useCartCreditStore } from '@/store/cartCredit'
+import { ICardCredit } from '@/@interface/api/ICardCredit'
 
-const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
+const usePostCardCredit = () => {
+  const { creditCardInfo, loading, postCreditCardInfo } = useCartCreditStore()
 
-export function usePostCardCredit(cardCredit: ICreditCard): IResponse<ICreditCard> {
-  try {
-    let loading = true
-    wait(500)
-    loading = false
-    const addCartCredit = addCreditCardInfo(cardCredit)
-    ShowGenericToast({ type: 'success' })
+  const handleAddProduct = useCallback(
+    async (cardCredit: ICardCredit) => {
+      const result = await postCreditCardInfo(cardCredit)
+      if (result.success) {
+        ShowGenericToast({
+          type: 'success',
+          message: 'Cartão adicionado com sucesso!',
+        })
+      } else {
+        ShowGenericToast({
+          type: 'error',
+          message: result.message || 'Erro ao adicionar produto.',
+        })
+      }
+    },
+    [postCreditCardInfo],
+  )
 
-    return {
-      data: addCartCredit,
-      success: true,
-      message: 'Produto adicionado ao carrinho com sucesso.',
-      errors: [],
-      loading,
-      statusCode: 201,
-      timestamp: new Date().toISOString(),
-    }
-  } catch (error) {
-    return {
-      data: null,
-      success: false,
-      message: 'Erro ao adicionar produto ao carrinho.',
-      errors: [String(error)],
-      loading: false,
-      statusCode: 500,
-      timestamp: new Date().toISOString(),
-    }
+  return {
+    handleAddProduct,
+    creditCardInfo,
+    loading,
   }
 }
+
+export default usePostCardCredit

@@ -1,26 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useProductStore } from '@/store/productStore'
+import { useEffect } from 'react'
+import { IResponse } from '@/@interface/response/Iresponse'
+import { ICardCredit } from '@/@interface/api/ICardCredit'
+import { useCartCreditStore } from '@/store/cartCredit'
 
-export function useFetch<T>(url: string) {
-  const [data, setData] = useState<T | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+const useGetCreditCard = () => {
+  const { creditCardInfo, fetchCreditCardInfo } = useCartCreditStore()
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(url)
-        if (!res.ok) throw new Error('Erro na requisição')
-        const json = await res.json()
-        setData(json)
-      } catch (err: any) {
-        setError(err.message)
-      } finally {
-        setLoading(false)
-      }
-    }
+    fetchCreditCardInfo()
+  }, [fetchCreditCardInfo])
 
-    fetchData()
-  }, [url])
+  const response: IResponse<ICardCredit> = creditCardInfo ?? {
+    data: null,
+    loading: true,
+    success: false,
+    message: '',
+    statusCode: 0,
+    timestamp: new Date().toISOString(),
+    errors: [],
+  }
 
-  return { data, loading, error }
+  return {
+    ...response,
+  }
 }
+
+export default useGetCreditCard

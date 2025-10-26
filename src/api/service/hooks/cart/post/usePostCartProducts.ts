@@ -8,8 +8,8 @@ const usePostCartProducts = () => {
 
   const handleAddProduct = useCallback(
     async (product: IProduct) => {
-      await addProduct(product)
-      if (success) {
+      const response = await addProduct(product)
+      if (response.success) {
         ShowGenericToast({
           type: 'success',
           message: 'Produto adicionado ao carrinho com sucesso.',

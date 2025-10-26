@@ -7,7 +7,11 @@ import {
   addCreditCardInfo,
   CREDIT_CARD_STORAGE_KEY,
 } from '@/utils/localStorage/CreditCard'
-import { usePostCardCredit } from '@/api/service/hooks/creditCart/usePost/usePostCardCredit'
+import usePostCardCredit from '@/api/service/hooks/creditCart/usePost/usePostCardCredit'
+import useGetCreditCard from '@/api/service/hooks/creditCart/useGet/useGetCreditCard'
+import { GenericLoading } from '@/components/Generic/Loading'
+import { Card } from '@/components/ui/card'
+import { BadgeCheck } from 'lucide-react'
 
 const initialValues = {
   cardNumber: '',
@@ -21,17 +25,34 @@ const initialValues = {
 }
 
 const CardCreditForm = () => {
+  const { handleAddProduct } = usePostCardCredit()
+  const { data, loading } = useGetCreditCard()
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
       const payload = {
-        last4Number: values.cardNumber.slice(-4),
+        ...values,
+        last4Number: values.cardNumber.slice(-4), // Adiciona o campo obrigatório
       }
-      usePostCardCredit(payload)
+      handleAddProduct(payload)
     },
     validationSchema: CardYup,
   })
-
+  if (loading) return <GenericLoading />
+  if (data?.last4Number) {
+    return (
+      <Card className="max-w-md mx-auto mt-8 p-6 flex flex-col items-center bg-green-50 border-green-200 shadow-md">
+        <BadgeCheck className="w-10 h-10 text-green-600 mb-2" />
+        <h2 className="text-lg font-semibold text-green-700 mb-1">
+          Cartão já cadastrado!
+        </h2>
+        <p className="text-base text-gray-700">
+          Você já possui um cartão cadastrado com final{' '}
+          <span className="font-bold">{data.last4Number}</span>
+        </p>
+      </Card>
+    )
+  }
   return (
     <form onSubmit={formik.handleSubmit} className="max-w-[700px] mx-auto">
       <div className="flex gap-6">

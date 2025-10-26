@@ -3,12 +3,12 @@ import { ShowGenericToast } from '@/components/Generic/Toast'
 import { useCartStoreReview } from '@/store/cartStore'
 
 const useDeleteItemCart = () => {
-  const { deleteItemCart, loading, success, fetchCart } = useCartStoreReview()
+  const { deleteItemCart, loading, success } = useCartStoreReview()
 
   const handleDelete = useCallback(
     async (productId: number) => {
-      await deleteItemCart(productId)
-      if (success) {
+      const response = await deleteItemCart(productId)
+      if (response) {
         ShowGenericToast({
           type: 'success',
           message: 'Produto removido do carrinho com sucesso.',

@@ -9,8 +9,8 @@ const usePatchQuantity = () => {
 
   const handleAddQuantity = useCallback(
     async (product: IProduct) => {
-      await addQuantityProductCart(product)
-      if (success) {
+      const response = await addQuantityProductCart(product)
+      if (response.success) {
         ShowGenericToast({
           type: 'success',
           message: 'Quantidade aumentada com sucesso.',

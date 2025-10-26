@@ -8,8 +8,8 @@ const usePatchMethodPayment = () => {
 
   const handleChangeMethodPayment = useCallback(
     async (methodPayment: METHOD_PAYMENT) => {
-      await patchMethodPayment(methodPayment)
-      if (success) {
+      const response = await patchMethodPayment(methodPayment)
+      if (response.success) {
         ShowGenericToast({
           type: 'success',
           message: 'Método de pagamento atualizado com sucesso.',

@@ -8,9 +8,9 @@ const usePatchOrderReview = () => {
 
   const handlePatchOrderReview = useCallback(
     async (orderReview: ORDER_REVIEW) => {
-      await patchOrderReviewCart(orderReview)
+      const response = await patchOrderReviewCart(orderReview)
 
-      if (success) {
+      if (response.success) {
         ShowGenericToast({
           type: 'success',
           message: 'Review do pedido atualizado com successo.',
