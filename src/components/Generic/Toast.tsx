@@ -1,7 +1,7 @@
 import { toast, ToastOptions } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-type ToastType = 'success' | 'error'
+type ToastType = 'success' | 'error' | 'info'
 
 interface PropsSuccessToast {
   type: ToastType
@@ -12,6 +12,7 @@ const ShowGenericToast = ({ type, message }: PropsSuccessToast) => {
   const defaultMessage = {
     success: 'Ação realizada com sucesso!',
     error: 'Ocorreu um erro!',
+    info: message,
   }
 
   const options: ToastOptions = {

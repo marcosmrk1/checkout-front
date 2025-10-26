@@ -3,7 +3,11 @@ import { useFormik } from 'formik'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { Button } from '@/components/ui/button'
-import { CREDIT_CARD_STORAGE_KEY } from '@/utils/localStorage/CreditCard'
+import {
+  addCreditCardInfo,
+  CREDIT_CARD_STORAGE_KEY,
+} from '@/utils/localStorage/CreditCard'
+import { usePostCardCredit } from '@/api/service/hooks/creditCart/usePost/usePostCardCredit'
 
 const initialValues = {
   cardNumber: '',
@@ -23,7 +27,7 @@ const CardCreditForm = () => {
       const payload = {
         last4Number: values.cardNumber.slice(-4),
       }
-      localStorage.setItem(CREDIT_CARD_STORAGE_KEY, JSON.stringify(payload))
+      usePostCardCredit(payload)
     },
     validationSchema: CardYup,
   })
@@ -169,8 +173,12 @@ const CardCreditForm = () => {
               Este é meu cartão padrão
             </label>
           </div>
-          <Button type="submit" className="mt-4 px-6 py-2 ">
-            Confirmar
+          <Button
+            type="submit"
+            className="mt-4 px-6 py-2"
+            disabled={formik.isSubmitting}
+          >
+            {formik.isSubmitting ? 'Salvando...' : 'Confirmar'}
           </Button>
         </div>
       </div>

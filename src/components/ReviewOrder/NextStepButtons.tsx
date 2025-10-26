@@ -11,13 +11,11 @@ import {
   URL_PAYMENT_STEP,
   URL_CONFIRMED_STEP,
 } from '@/@URLQueries/progressOrderStep'
-import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
-import { usePatchOrderReviewCart } from '@/api/service/hooks/cart/patch/usePatchOrderReview'
 import { useEffect, useState } from 'react'
+import { getCreditCardInfo } from '@/utils/localStorage/CreditCard'
 import { ShowGenericToast } from '@/components/Generic/Toast'
 import { usePatchMethodPayment } from '@/api/service/hooks/cart/patch/usePatchMethodPayment'
-import { CREDIT_CARD_STORAGE_KEY } from '@/utils/localStorage/CreditCard'
 
 interface ButtonProps {
   backLabel?: string
@@ -32,18 +30,6 @@ const NextStepButtons = ({
   const router = useRouter()
   const searchParams = useSearchParams()
   const progressOrder = searchParams.get(URL_PROGRESS_ORDER)
-  const clearCart = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('checkout:cart')
-    }
-  }
-
-  const handleLeaveConfirmedStep = () => {
-    if (window.confirm('Se você sair agora, cancelará seu pedido. Deseja continuar?')) {
-      clearCart()
-      router.push('/catalog')
-    }
-  }
 
   const handleBackToPayment = () => {
     if (progressOrder === URL_KART_STEP) {
@@ -54,46 +40,46 @@ const NextStepButtons = ({
     }
   }
 
-  useEffect(() => {
-    if (progressOrder === URL_CONFIRMED_STEP) {
-      handleLeaveConfirmedStep()
-    }
-  }, [progressOrder])
-
   const confirmeOrder = async () => {
-    if (methodPayment === METHOD_PAYMENT.CREDIT_CARD) {
-      const getCatchCardCreditUser = localStorage.getItem(CREDIT_CARD_STORAGE_KEY)
-      const cardCreditUser = getCatchCardCreditUser
-        ? JSON.parse(getCatchCardCreditUser)
-        : null
-      console.log(cardCreditUser.last4Number)
+    console.log('oi')
+    creditCartMethodRules()
+    if (progressOrder === URL_KART_STEP) {
+      router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_PAYMENT_STEP}`)
+    }
+
+    if (!methodPayment && progressOrder === URL_PAYMENT_STEP) {
+      ShowGenericToast({
+        type: 'error',
+        message: 'Selecione um método de pagamento para continuar.',
+      })
+    }
+    if (methodPayment && progressOrder === URL_PAYMENT_STEP) {
+      const responseMethodPayment = await usePatchMethodPayment(methodPayment)
+      if (responseMethodPayment.loading) return <GenericLoading />
+      if (responseMethodPayment.success) {
+        router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
+      }
+    }
+  }
+  const creditCartMethodRules = () => {
+    const cardCreditUser = getCreditCardInfo()
+    if (
+      progressOrder === URL_PAYMENT_STEP &&
+      methodPayment === METHOD_PAYMENT.CREDIT_CARD
+    ) {
+      if (!cardCreditUser) {
+        return ShowGenericToast({
+          type: 'error',
+          message:
+            'Nenhuma informação de cartão de crédito encontrada. Por favor, adicione um cartão para continuar.',
+        })
+      }
       if (cardCreditUser?.last4Number) {
         ShowGenericToast({
           type: 'success',
           message: 'Método de pagamento salvo com sucesso!',
         })
         return router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
-      } else {
-        ShowGenericToast({
-          type: 'error',
-          message:
-            'Por favor, preencha os dados do cartão de crédito antes de continuar.',
-        })
-        return
-      }
-    }
-    if (!methodPayment) {
-      ShowGenericToast({
-        type: 'error',
-        message: 'Selecione um método de pagamento para continuar.',
-      })
-    }
-
-    if (methodPayment && progressOrder === URL_PAYMENT_STEP) {
-      const responseMethodPayment = await usePatchMethodPayment(methodPayment)
-      if (responseMethodPayment.loading) return <GenericLoading />
-      if (responseMethodPayment.success) {
-        router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
       }
     }
   }
