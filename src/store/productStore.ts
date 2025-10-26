@@ -5,7 +5,6 @@ import { getAllProducts } from '@/api/service/products/get/getAllProducts'
 
 interface ProductStore {
   productsData: IResponse<IProduct[]> | null
-
   fetchProducts: () => Promise<void>
 }
 
@@ -13,8 +12,6 @@ export const useProductStore = create<ProductStore>((set) => ({
   productsData: null,
   fetchProducts: async () => {
     const response = await getAllProducts()
-    set({
-      productsData: response,
-    })
+    set({ productsData: response })
   },
 }))

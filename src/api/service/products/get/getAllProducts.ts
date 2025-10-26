@@ -4,13 +4,57 @@ import { LOCAL_STORAGE_PRODUCTS } from '@/utils/localStorage/Products'
 
 // Mock dos produtos
 export const product: IProduct[] = [
-  // ... seus produtos mockados ...
+  {
+    id: 1,
+    name: 'controle Xbox',
+    price: 250,
+    description: 'controle sem fio Xbox',
+    image: '/images/controle-xbox.jpg',
+    star: 4,
+    category: 'Acessórios',
+  },
+  {
+    id: 2,
+    name: 'Headset Gamer',
+    price: 300,
+    description: 'Headset com som surround 7.1',
+    image: '/images/headset-gamer.jpg',
+    star: 5,
+    category: 'Acessórios',
+  },
+  {
+    id: 3,
+    name: 'Teclado Mecânico',
+    price: 450,
+    description: 'Teclado mecânico RGB para jogos',
+    image: '/images/teclado-mecanico.jpg',
+    star: 5,
+    category: 'Periféricos',
+  },
+  {
+    id: 4,
+    name: 'Mouse Gamer',
+    price: 200,
+    description: 'Mouse gamer com alta precisão',
+    image: '/images/mouse-gamer.jpg',
+    star: 4,
+    category: 'Periféricos',
+  },
+  {
+    id: 5,
+    name: 'Monitor 27 polegadas',
+    price: 1200,
+    description: 'Monitor Full HD para jogos',
+    image: '/images/monitor-27.jpg',
+    star: 5,
+    category: 'Monitores',
+  },
 ]
 
 const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
 export const getAllProducts = async (): Promise<IResponse<IProduct[]>> => {
-  await wait(1000) // Simula um atraso de 1 segundo
+  await wait(1000)
   try {
     const localStorageProducts = localStorage.getItem(LOCAL_STORAGE_PRODUCTS)
     if (localStorageProducts) {
@@ -25,7 +69,6 @@ export const getAllProducts = async (): Promise<IResponse<IProduct[]>> => {
         errors: [],
       }
     } else {
-      // Simula uma chamada de API bem-sucedida e armazena no localStorage
       localStorage.setItem(LOCAL_STORAGE_PRODUCTS, JSON.stringify(product))
       return {
         data: product,

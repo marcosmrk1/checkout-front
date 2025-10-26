@@ -9,25 +9,21 @@ import { Heart, ShoppingCart, Star, Eye } from 'lucide-react'
 import { useEffect } from 'react'
 import { useCartStore } from '@/store/cartStore'
 import { useProductStore } from '@/store/productStore'
+import useGetAllProductStore from '@/api/service/hooks/products/useGet/useGetAllProductStore'
 
 const ListProductPrice = () => {
   const addProduct = useCartStore((state) => state.addProduct)
-  const { productsData, fetchProducts } = useProductStore()
+  const { data, success, message, loading } = useGetAllProductStore()
 
-  useEffect(() => {
-    fetchProducts()
-  }, [fetchProducts])
-
-  if (!productsData) return <GenericLoading />
-  if (!productsData.success) {
+  if (!success) {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-red-500">
         <span>Erro ao carregar produtos.</span>
-        <span>{productsData.message}</span>
+        <span>{success}</span>
       </div>
     )
   }
-
+  if (loading) return <GenericLoading />
   const handleAddToCart = (product: IProduct) => {
     addProduct(product)
   }
@@ -35,7 +31,7 @@ const ListProductPrice = () => {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
-        {productsData.data?.map((product) => (
+        {data?.map((product) => (
           <Card
             key={product.id}
             className="w-72 rounded-lg p-2 shadow-lg transition-all duration-300 hover:-translate-y-1 bg-card border-2 border-transparent hover:shadow-[0_0_20px_rgba(57,255,20,0.6),0_0_40px_rgba(57,255,20,0.3)]"
