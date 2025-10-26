@@ -26,4 +26,5 @@ export interface ICart {
     | METHOD_PAYMENT.CREDIT_CARD
     | METHOD_PAYMENT.PIX
     | METHOD_PAYMENT.PAYMENT_SLIP
+  totalQuantity: number
 }

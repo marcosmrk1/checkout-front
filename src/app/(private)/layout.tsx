@@ -2,9 +2,10 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import '@/app/globals.css'
 import { cn } from '@/lib/utils'
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import { SidebarTrigger } from '@/components/ui/sidebar'
 import { AppSideBar } from '@/components/Menu/AppSideBar'
 import { NavBarHeader } from '@/components/Menu/NavBar'
+import { Providers } from '@/app/(private)/Providers'
 
 const geistSans = Geist({
   subsets: ['latin'],
@@ -22,18 +23,18 @@ export default function RootLayoutPrivate({
 }>) {
   return (
     <div className={cn(geistSans.variable, geistMono.variable, 'bg-background')}>
-      <SidebarProvider>
+      <Providers>
         <AppSideBar />
-        <main className="w-full ">
-          <div className="top-0 z-40 w-full border-b  ">
+        <main className="w-full">
+          <div className="top-0 z-40 w-full border-b">
             <NavBarHeader />
           </div>
           <div className="p-1">
             <SidebarTrigger />
-            <div className="container mx-auto px-3 ">{children}</div>
+            <div className="container mx-auto px-3">{children}</div>
           </div>
         </main>
-      </SidebarProvider>
+      </Providers>
     </div>
   )
 }

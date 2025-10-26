@@ -7,6 +7,7 @@ const initialValuesCart: ICart = {
   itens: [] as ICartItem[],
   total: 0,
   orderReview: ORDER_REVIEW.REVIEW_CART,
+  totalQuantity: 0,
 }
 export function getCart(): ICart {
   if (typeof window === 'undefined') return initialValuesCart
@@ -19,9 +20,14 @@ export function getCart(): ICart {
       (acc: number, el: ICartItem) => acc + el.product.price * el.quantity,
       0,
     )
+    const totalQuantity = parsed.itens.reduce(
+      (acc: number, el: ICartItem) => acc + el.quantity,
+      0,
+    )
     return {
       itens: parsed.itens,
       total: parsed.total ?? totalPrice,
+      totalQuantity: parsed.totalQuantity ?? totalQuantity,
       orderReview: parsed.orderReview ?? ORDER_REVIEW.REVIEW_CART,
       metodPayment: parsed.metodPayment,
     }
@@ -47,6 +53,10 @@ export function addToCart(product: IProduct) {
   }
   cart.total = cart.itens.reduce(
     (acc: number, el: ICartItem) => acc + el.product.price * el.quantity,
+    0,
+  )
+  cart.totalQuantity = cart.itens.reduce(
+    (acc: number, el: ICartItem) => acc + el.quantity,
     0,
   )
   setCart(cart)

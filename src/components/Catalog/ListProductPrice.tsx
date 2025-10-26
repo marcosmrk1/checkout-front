@@ -1,6 +1,5 @@
 'use client'
 import { IProduct } from '@/@interface/api/IProduct'
-import { useAddPostCard } from '@/api/service/hooks/cart/post/usePostCartProducts'
 import {
   product,
   useGetAllProducts,
@@ -12,9 +11,12 @@ import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
 import { addToCart } from '@/utils/localStorage/Cart'
 import { Heart, ShoppingCart, Star, Eye } from 'lucide-react'
 import { useState } from 'react'
+import { useCartStore } from '@/store/cartStore'
 
 const ListProductPrice = () => {
   const { data, loading, errors, success } = useGetAllProducts()
+  const addProduct = useCartStore((state) => state.addProduct)
+
   if (loading) return <GenericLoading />
   if (!success) {
     return (
@@ -26,8 +28,9 @@ const ListProductPrice = () => {
   }
 
   const handleAddToCart = (product: IProduct) => {
-    useAddPostCard(product)
+    addProduct(product)
   }
+
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">

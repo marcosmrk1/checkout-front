@@ -15,10 +15,13 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { CartItemsList } from '@/components/Menu/CartItemsList'
 import { signOut } from 'next-auth/react'
+import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import { useCartStore } from '@/store/cartStore'
 
 const NavBarHeader = () => {
-  const [cartItemsCount] = useState(3)
-
+  const cart = useCartStore((state) => state.cart)
+  const quantityItemsInCart = cart?.totalQuantity
+  console.log('cart', quantityItemsInCart)
   return (
     <div className="flex h-16 items-center justify-between px-4 bg-sidebar">
       <div className="flex items-center space-x-2">
@@ -53,12 +56,12 @@ const NavBarHeader = () => {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="relative">
               <ShoppingCart className="h-5 w-5" />
-              {cartItemsCount > 0 && (
+              {quantityItemsInCart > 0 && (
                 <Badge
                   variant="destructive"
                   className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs"
                 >
-                  {cartItemsCount}
+                  {quantityItemsInCart}
                 </Badge>
               )}
             </Button>
@@ -67,7 +70,7 @@ const NavBarHeader = () => {
             <DropdownMenuLabel>Carrinho de Compras</DropdownMenuLabel>
             <DropdownMenuSeparator />
 
-            {cartItemsCount === 0 ? (
+            {quantityItemsInCart === 0 ? (
               <div className="py-6 text-center text-sm text-muted-foreground">
                 Seu carrinho está vazio
               </div>
