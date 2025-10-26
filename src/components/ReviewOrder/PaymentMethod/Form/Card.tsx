@@ -3,6 +3,7 @@ import { useFormik } from 'formik'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { Button } from '@/components/ui/button'
+import { CREDIT_CARD_STORAGE_KEY } from '@/utils/localStorage/CreditCard'
 
 const initialValues = {
   cardNumber: '',
@@ -15,13 +16,14 @@ const initialValues = {
   isDefault: false,
 }
 
-const CardForm = () => {
+const CardCreditForm = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
       const payload = {
         last4Number: values.cardNumber.slice(-4),
       }
+      localStorage.setItem(CREDIT_CARD_STORAGE_KEY, JSON.stringify(payload))
     },
     validationSchema: CardYup,
   })
@@ -176,4 +178,4 @@ const CardForm = () => {
   )
 }
 
-export { CardForm }
+export { CardCreditForm }

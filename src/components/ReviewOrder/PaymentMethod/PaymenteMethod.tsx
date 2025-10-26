@@ -11,7 +11,7 @@ import {
 import { ChevronDown, ChevronUp, CreditCard, QrCode, Barcode } from 'lucide-react'
 
 import { Card } from '@/components/ui/card'
-import { CardForm } from '@/components/ReviewOrder/PaymentMethod/Form/Card'
+import { CardCreditForm } from '@/components/ReviewOrder/PaymentMethod/Form/Card'
 import { METHOD_PAYMENT } from '@/@interface/api/ICart'
 import { IMethodDescriptionSelect } from '@/@interface/models/IMethodsPayment'
 interface IPaymentMethodProps {
@@ -103,7 +103,7 @@ const PaymentMethod = ({ methodPayment, setMethodPayment }: IPaymentMethodProps)
                 <div>
                   {method.method === METHOD_PAYMENT.CREDIT_CARD && (
                     <>
-                      <CardForm />
+                      <CardCreditForm />
                     </>
                   )}{' '}
                 </div>

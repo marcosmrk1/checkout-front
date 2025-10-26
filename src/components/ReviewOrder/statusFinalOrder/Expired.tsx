@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
 
-export default function OrderExpired() {
+const OrderExpired = () => {
   const router = useRouter()
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] gap-10 p-8">
@@ -26,3 +26,4 @@ export default function OrderExpired() {
     </div>
   )
 }
+export { OrderExpired }

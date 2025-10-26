@@ -17,6 +17,7 @@ import { usePatchOrderReviewCart } from '@/api/service/hooks/cart/patch/usePatch
 import { useEffect, useState } from 'react'
 import { ShowGenericToast } from '@/components/Generic/Toast'
 import { usePatchMethodPayment } from '@/api/service/hooks/cart/patch/usePatchMethodPayment'
+import { CREDIT_CARD_STORAGE_KEY } from '@/utils/localStorage/CreditCard'
 
 interface ButtonProps {
   backLabel?: string
@@ -60,9 +61,26 @@ const NextStepButtons = ({
   }, [progressOrder])
 
   const confirmeOrder = async () => {
-    if (progressOrder === URL_KART_STEP) {
-      router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_PAYMENT_STEP}`)
-      return
+    if (methodPayment === METHOD_PAYMENT.CREDIT_CARD) {
+      const getCatchCardCreditUser = localStorage.getItem(CREDIT_CARD_STORAGE_KEY)
+      const cardCreditUser = getCatchCardCreditUser
+        ? JSON.parse(getCatchCardCreditUser)
+        : null
+      console.log(cardCreditUser.last4Number)
+      if (cardCreditUser?.last4Number) {
+        ShowGenericToast({
+          type: 'success',
+          message: 'Método de pagamento salvo com sucesso!',
+        })
+        return router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
+      } else {
+        ShowGenericToast({
+          type: 'error',
+          message:
+            'Por favor, preencha os dados do cartão de crédito antes de continuar.',
+        })
+        return
+      }
     }
     if (!methodPayment) {
       ShowGenericToast({

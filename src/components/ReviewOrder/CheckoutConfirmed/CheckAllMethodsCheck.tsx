@@ -7,20 +7,15 @@ import { PaymenteCreditCard } from '@/components/ReviewOrder/CheckoutConfirmed/P
 import { PaymentPix } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentCheck/PaymentPix'
 import { PaymentSlip } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentCheck/PaymentSlip'
 import { TimeBuy } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentCheck/TimeBuy'
-import OrderExpired from '@/components/ReviewOrder/statusFinalOrder/Expired'
 import OrderConfirmed from '@/components/ReviewOrder/statusFinalOrder/Confirmed'
+import { OrderExpired } from '@/components/ReviewOrder/statusFinalOrder/Expired'
 import { useEffect, useState } from 'react'
 
 const CheckAllMethodsCheck = () => {
   const [refresh, setRefresh] = useState(0)
   const [expired, setExpired] = useState(false)
   const { data, loading } = useGetAllCartProducts(refresh)
-  console.log({
-    expired,
-    orderReview: data?.orderReview,
-    sdadsa: ORDER_REVIEW.WAIT_CONFIRM,
-  })
-  console.log('data', data?.orderReview === ORDER_REVIEW.WAIT_CONFIRM)
+
   if (loading) return <GenericLoading />
 
   if (expired || data?.orderReview === ORDER_REVIEW.EXPIRED_ORDER) {
