@@ -30,12 +30,13 @@ const NextStepButtons = ({
   const router = useRouter()
   const searchParams = useSearchParams()
   const progressOrder = searchParams.get(URL_PROGRESS_ORDER)
-
+  const routeActualPayment = progressOrder === URL_PAYMENT_STEP
+  const routeActualKart = progressOrder === URL_KART_STEP
   const handleBackToPayment = () => {
-    if (progressOrder === URL_KART_STEP) {
+    if (routeActualKart) {
       router.push(`/catalog`)
     }
-    if (progressOrder === URL_PAYMENT_STEP) {
+    if (routeActualPayment) {
       router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_KART_STEP}`)
     }
   }
@@ -43,17 +44,17 @@ const NextStepButtons = ({
   const confirmeOrder = async () => {
     console.log('oi')
     creditCartMethodRules()
-    if (progressOrder === URL_KART_STEP) {
+    if (routeActualKart) {
       router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_PAYMENT_STEP}`)
     }
 
-    if (!methodPayment && progressOrder === URL_PAYMENT_STEP) {
+    if (!methodPayment && routeActualPayment) {
       ShowGenericToast({
         type: 'error',
         message: 'Selecione um método de pagamento para continuar.',
       })
     }
-    if (methodPayment && progressOrder === URL_PAYMENT_STEP) {
+    if (methodPayment && routeActualPayment) {
       const responseMethodPayment = await usePatchMethodPayment(methodPayment)
       if (responseMethodPayment.loading) return <GenericLoading />
       if (responseMethodPayment.success) {
