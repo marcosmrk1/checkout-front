@@ -1,6 +1,6 @@
 'use client'
 import { URL_KART_STEP, URL_PROGRESS_ORDER } from '@/@URLQueries/progressOrderStep'
-import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { ShowGenericToast } from '@/components/Generic/Toast'
 import { Badge } from '@/components/ui/badge'

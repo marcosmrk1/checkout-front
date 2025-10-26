@@ -3,18 +3,21 @@
 import { Card } from '@/components/ui/card'
 import { useEffect, useState } from 'react'
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
-import { usePatchOrderReviewCart } from '@/api/service/hooks/cart/patch/usePatchOrderReview'
+import usePatchOrderReview from '@/api/service/hooks/cart/patch/usePatchOrderReview'
+
 interface TimeBuyProps {
   setExpired: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 const TimeBuy = ({ setExpired }: TimeBuyProps) => {
   const [timeLeft, setTimeLeft] = useState(30 * 1)
   const [localExpired, setLocalExpired] = useState(false)
+  const { handlePatchOrderReview } = usePatchOrderReview()
 
   useEffect(() => {
     if (timeLeft <= 0) {
       if (!localExpired) {
-        usePatchOrderReviewCart(ORDER_REVIEW.EXPIRED_ORDER)
+        handlePatchOrderReview(ORDER_REVIEW.EXPIRED_ORDER)
         setLocalExpired(true)
         setExpired(true)
       }
@@ -32,7 +35,7 @@ const TimeBuy = ({ setExpired }: TimeBuyProps) => {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [timeLeft, localExpired, setExpired])
+  }, [timeLeft, localExpired, setExpired, handlePatchOrderReview])
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -52,4 +55,5 @@ const TimeBuy = ({ setExpired }: TimeBuyProps) => {
     </Card>
   )
 }
+
 export { TimeBuy }

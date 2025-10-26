@@ -1,42 +1,28 @@
-import { ICart, METHOD_PAYMENT, ORDER_REVIEW } from '@/@interface/api/ICart'
-import { IResponse } from '@/@interface/response/Iresponse'
+import { METHOD_PAYMENT } from '@/@interface/api/ICart'
 import { ShowGenericToast } from '@/components/Generic/Toast'
-import { updateMethodPayment, updateOrderReview } from '@/utils/localStorage/Cart'
-const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
+import { useCartStoreReview } from '@/store/cartStore'
+import { useCallback } from 'react'
 
-export async function usePatchMethodPayment(
-  methodPayment: METHOD_PAYMENT,
-): Promise<IResponse<ICart>> {
-  let loading = true
-  try {
-    await wait(500)
-    loading = false
-    const changeOrderReview = updateOrderReview(ORDER_REVIEW.WAIT_CONFIRM)
-    const changeUpdateMethodPayment = updateMethodPayment(methodPayment)
-    ShowGenericToast({
-      type: 'success',
-      message: 'Seu pedido foi realizado com sucesso!',
-    })
+const usePatchMethodPayment = () => {
+  const { patchMethodPayment, loading, errors, success } = useCartStoreReview()
 
-    return {
-      data: changeUpdateMethodPayment,
-      success: true,
-      message: 'Produto adicionado ao carrinho com sucesso.',
-      errors: [],
-      loading,
-      statusCode: 201,
-      timestamp: new Date().toISOString(),
-    }
-  } catch (error) {
-    loading = false
-    return {
-      data: null,
-      success: false,
-      message: 'Erro ao adicionar produto ao carrinho.',
-      errors: [String(error)],
-      loading,
-      statusCode: 500,
-      timestamp: new Date().toISOString(),
-    }
-  }
+  const handleChangeMethodPayment = useCallback(
+    async (methodPayment: METHOD_PAYMENT) => {
+      await patchMethodPayment(methodPayment)
+      if (success) {
+        ShowGenericToast({
+          type: 'success',
+          message: 'Método de pagamento atualizado com sucesso.',
+        })
+      } else {
+        ShowGenericToast({
+          type: 'error',
+        })
+      }
+    },
+    [patchMethodPayment, success],
+  )
+
+  return { handleChangeMethodPayment, loading }
 }
+export default usePatchMethodPayment

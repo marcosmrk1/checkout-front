@@ -1,13 +1,13 @@
 'use client'
 
-import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { Card } from '@/components/ui/card'
 
 const OrderSummary = ({ refresh }: { refresh: number }) => {
-  const { data, loading } = useGetAllCartProducts(refresh)
+  const { data, loading } = useGetAllCartProducts()
   const total = data?.total ?? 0
-  const itemsCount = data?.itens?.reduce((acc, item) => acc + item.quantity, 0) ?? 0
+  const itemsCount = data?.totalQuantity ?? 0
   if (loading) return <GenericLoading />
   return (
     <Card className="w-full rounded-md p-4 bg-card border-transparent sticky top-4">

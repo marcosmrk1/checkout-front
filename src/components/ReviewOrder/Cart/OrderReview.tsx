@@ -4,15 +4,14 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ShoppingCart, Minus, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
-import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
-import {
-  useAddQuantityProduct,
-  useDecreaseQuantityProduct,
-} from '@/api/service/hooks/cart/patch/usePatchQuantity'
+
 import { ICartItem } from '@/@interface/api/ICart'
 import { IProduct } from '@/@interface/api/IProduct'
-import { useDeleteRemoveItemCard } from '@/api/service/hooks/cart/del/useDeletarProductCart'
+import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import { useCartStoreReview } from '@/store/cartStore'
+import usePatchQuantity from '@/api/service/hooks/cart/patch/usePatchQuantity'
+import useDeleteItemCart from '@/api/service/hooks/cart/del/useDeleteItemCart'
 interface product {
   id: number
   name: string
@@ -28,8 +27,9 @@ const OrderReview = ({
   refresh: number
   setRefresh: React.Dispatch<React.SetStateAction<number>>
 }) => {
-  const { data, loading, errors } = useGetAllCartProducts(refresh)
-
+  const { data, loading, errors } = useGetAllCartProducts()
+  const { handleAddQuantity, handleRemoveQuantity } = usePatchQuantity()
+  const { deleteItemCart } = useDeleteItemCart()
   if (loading) return <GenericLoading />
 
   if (!data || !data.itens || data.itens.length === 0) {
@@ -46,13 +46,13 @@ const OrderReview = ({
   }
 
   const updateProductQuantity = (productSelect: IProduct, add: boolean) => {
-    const action = add ? useAddQuantityProduct : useDecreaseQuantityProduct
+    const action = add ? handleAddQuantity : handleRemoveQuantity
     action(productSelect)
     setRefresh((prev) => prev + 1)
   }
 
   const handleDeleteProduct = (productSelect: IProduct) => {
-    useDeleteRemoveItemCard(productSelect)
+    deleteItemCart(productSelect.id)
     setRefresh((prev) => prev + 1)
   }
 

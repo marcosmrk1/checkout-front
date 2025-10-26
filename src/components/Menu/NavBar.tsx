@@ -15,13 +15,12 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { CartItemsList } from '@/components/Menu/CartItemsList'
 import { signOut } from 'next-auth/react'
-import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
-import { useCartStore } from '@/store/cartStore'
+import useGetAllProductStore from '@/api/service/hooks/products/useGet/useGetAllProductStore'
+import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 
 const NavBarHeader = () => {
-  const cart = useCartStore((state) => state.cart)
-  const quantityItemsInCart = cart?.totalQuantity
-  console.log('cart', quantityItemsInCart)
+  const { data } = useGetAllCartProducts()
+  const quantityItemsInCart = data?.totalQuantity || 0
   return (
     <div className="flex h-16 items-center justify-between px-4 bg-sidebar">
       <div className="flex items-center space-x-2">
@@ -120,6 +119,7 @@ const NavBarHeader = () => {
         </DropdownMenu>
       </div>
     </div>
+    // <div>qas</div>
   )
 }
 export { NavBarHeader }

@@ -1,70 +1,53 @@
-import {
-  AddProductQuantity,
-  addToCart,
-  decreaseProductQuantity,
-} from '@/utils/localStorage/Cart'
-import { IProduct } from '@/@interface/api/IProduct'
-import { ICart } from '@/@interface/api/ICart'
-import { IResponse } from '@/@interface/response/Iresponse'
+import { useCartStoreReview } from '@/store/cartStore'
 import { ShowGenericToast } from '@/components/Generic/Toast'
+import { useCallback } from 'react'
+import { IProduct } from '@/@interface/api/IProduct'
 
-const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
+const usePatchQuantity = () => {
+  const { addQuantityProductCart, removeQuantityProductCart, loading, success, errors } =
+    useCartStoreReview()
 
-export function useAddQuantityProduct(product: IProduct): IResponse<ICart> {
-  try {
-    let loading = true
-    wait(500)
-    loading = false
-    const addCart = AddProductQuantity(product.id)
-    ShowGenericToast({ type: 'success' })
+  const handleAddQuantity = useCallback(
+    async (product: IProduct) => {
+      await addQuantityProductCart(product)
+      if (success) {
+        ShowGenericToast({
+          type: 'success',
+          message: 'Quantidade aumentada com sucesso.',
+        })
+      } else {
+        ShowGenericToast({
+          type: 'error',
+        })
+      }
+    },
+    [addQuantityProductCart, success, errors],
+  )
 
-    return {
-      data: addCart,
-      success: true,
-      message: 'Produto adicionado ao carrinho com sucesso.',
-      errors: [],
-      loading,
-      statusCode: 201,
-      timestamp: new Date().toISOString(),
-    }
-  } catch (error) {
-    return {
-      data: null,
-      success: false,
-      message: 'Erro ao adicionar produto ao carrinho.',
-      errors: [String(error)],
-      loading: false,
-      statusCode: 500,
-      timestamp: new Date().toISOString(),
-    }
+  const handleRemoveQuantity = useCallback(
+    async (product: IProduct) => {
+      await removeQuantityProductCart(product)
+      if (success) {
+        ShowGenericToast({
+          type: 'success',
+          message: 'Quantidade reduzida com sucesso.',
+        })
+      } else {
+        ShowGenericToast({
+          type: 'error',
+        })
+      }
+    },
+    [removeQuantityProductCart, success, errors],
+  )
+
+  return {
+    handleAddQuantity,
+    handleRemoveQuantity,
+    loading,
+    success,
+    errors,
   }
 }
-export function useDecreaseQuantityProduct(product: IProduct): IResponse<ICart> {
-  try {
-    let loading = true
-    wait(500)
-    loading = false
-    const addCart = decreaseProductQuantity(product.id)
-    ShowGenericToast({ type: 'success' })
 
-    return {
-      data: addCart,
-      success: true,
-      message: 'Produto removido do carrinho com sucesso.',
-      errors: [],
-      loading,
-      statusCode: 201,
-      timestamp: new Date().toISOString(),
-    }
-  } catch (error) {
-    return {
-      data: null,
-      success: false,
-      message: 'Erro ao remover produto do carrinho.',
-      errors: [String(error)],
-      loading: false,
-      statusCode: 500,
-      timestamp: new Date().toISOString(),
-    }
-  }
-}
+export default usePatchQuantity

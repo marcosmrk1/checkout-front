@@ -7,12 +7,12 @@ import { Card } from '@/components/ui/card'
 import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
 import { Heart, ShoppingCart, Star, Eye } from 'lucide-react'
 import { useEffect } from 'react'
-import { useCartStore } from '@/store/cartStore'
 import { useProductStore } from '@/store/productStore'
 import useGetAllProductStore from '@/api/service/hooks/products/useGet/useGetAllProductStore'
+import { useCartStoreReview } from '@/store/cartStore'
 
 const ListProductPrice = () => {
-  const addProduct = useCartStore((state) => state.addProduct)
+  const addProduct = useCartStoreReview((state) => state.addProduct)
   const { data, success, message, loading } = useGetAllProductStore()
 
   if (!success) {

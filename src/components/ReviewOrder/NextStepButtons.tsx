@@ -12,10 +12,10 @@ import {
   URL_CONFIRMED_STEP,
 } from '@/@URLQueries/progressOrderStep'
 import { GenericLoading } from '@/components/Generic/Loading'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { getCreditCardInfo } from '@/utils/localStorage/CreditCard'
 import { ShowGenericToast } from '@/components/Generic/Toast'
-import { usePatchMethodPayment } from '@/api/service/hooks/cart/patch/usePatchMethodPayment'
+import usePatchMethodPayment from '@/api/service/hooks/cart/patch/usePatchMethodPayment'
 
 interface ButtonProps {
   backLabel?: string
@@ -27,6 +27,7 @@ const NextStepButtons = ({
   backLabel = 'Voltar ao cátalogo',
   methodPayment,
 }: ButtonProps) => {
+  const { handleChangeMethodPayment, loading } = usePatchMethodPayment()
   const router = useRouter()
   const searchParams = useSearchParams()
   const progressOrder = searchParams.get(URL_PROGRESS_ORDER)
@@ -42,10 +43,12 @@ const NextStepButtons = ({
   }
 
   const confirmeOrder = async () => {
-    console.log('oi')
-    creditCartMethodRules()
+    const canContinue = creditCartMethodRules()
+    if (!canContinue) return
+
     if (routeActualKart) {
       router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_PAYMENT_STEP}`)
+      return
     }
 
     if (!methodPayment && routeActualPayment) {
@@ -53,15 +56,15 @@ const NextStepButtons = ({
         type: 'error',
         message: 'Selecione um método de pagamento para continuar.',
       })
+      return
     }
     if (methodPayment && routeActualPayment) {
-      const responseMethodPayment = await usePatchMethodPayment(methodPayment)
-      if (responseMethodPayment.loading) return <GenericLoading />
-      if (responseMethodPayment.success) {
-        router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
-      }
+      await handleChangeMethodPayment(methodPayment)
+      if (loading) return <GenericLoading />
+      router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
     }
   }
+
   const creditCartMethodRules = () => {
     const cardCreditUser = getCreditCardInfo()
     if (
@@ -69,20 +72,22 @@ const NextStepButtons = ({
       methodPayment === METHOD_PAYMENT.CREDIT_CARD
     ) {
       if (!cardCreditUser) {
-        return ShowGenericToast({
+        ShowGenericToast({
           type: 'error',
           message:
             'Nenhuma informação de cartão de crédito encontrada. Por favor, adicione um cartão para continuar.',
         })
+        return false
       }
       if (cardCreditUser?.last4Number) {
         ShowGenericToast({
           type: 'success',
           message: 'Método de pagamento salvo com sucesso!',
         })
-        return router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
+        router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
       }
     }
+    return true
   }
 
   return (

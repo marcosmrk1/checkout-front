@@ -12,10 +12,10 @@ import { PaymentMethodSelector } from '@/components/ReviewOrder/PaymentMethod/Me
 import { ReviewCompletRequestCart } from '@/components/ReviewOrder/Cart/ReviewCompletRequest'
 import { CheckAllMethodsCheck } from '@/components/ReviewOrder/CheckoutConfirmed/CheckAllMethodsCheck'
 import { GenericLoading } from '@/components/Generic/Loading'
-import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
+import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 
 interface Step {
   title: string

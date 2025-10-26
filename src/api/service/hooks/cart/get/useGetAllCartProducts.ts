@@ -1,43 +1,21 @@
-import { useEffect, useState } from 'react'
-import { getCart } from '@/utils/localStorage/Cart'
-import { IResponse } from '@/@interface/response/Iresponse'
-import { ICart } from '@/@interface/api/ICart'
-import { ROUTE_CART } from '@/api/service/routes/Cart'
-const wait = (ms: number) => new Promise((res) => setTimeout(res, ms))
+import { useCartStoreReview } from '@/store/cartStore'
+import { ShowGenericToast } from '@/components/Generic/Toast'
+import { useCallback } from 'react'
 
-export function useGetAllCartProducts(refresh?: number) {
-  const [response, setResponse] = useState<IResponse<ICart>>({} as IResponse<ICart>)
+const useGetAllCartProducts = () => {
+  const { fetchCart, data, loading, success, errors } = useCartStoreReview()
 
-  useEffect(() => {
-    const fetchCart = async () => {
-      setResponse((prev) => ({ ...prev, loading: true }))
-      try {
-        await wait(300)
-        await fetch(ROUTE_CART).catch(() => {})
-        const cartData = getCart()
-        setResponse({
-          data: cartData,
-          success: true,
-          message: 'Produtos do carrinho obtidos com sucesso.',
-          errors: [],
-          loading: false,
-          statusCode: 200,
-          timestamp: new Date().toISOString(),
-        })
-      } catch (error) {
-        setResponse({
-          data: null,
-          success: false,
-          message: 'Erro ao obter produtos do carrinho.',
-          errors: [String(error)],
-          loading: false,
-          statusCode: 500,
-          timestamp: new Date().toISOString(),
-        })
-      }
-    }
-    fetchCart()
-  }, [refresh])
+  const handleGetAllCartProducts = useCallback(async () => {
+    await fetchCart()
+  }, [fetchCart, success, errors])
 
-  return response
+  return {
+    handleGetAllCartProducts,
+    data,
+    loading,
+    success,
+    errors,
+  }
 }
+
+export default useGetAllCartProducts

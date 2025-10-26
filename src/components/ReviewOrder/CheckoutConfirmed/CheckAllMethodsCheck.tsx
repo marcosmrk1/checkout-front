@@ -1,7 +1,7 @@
 'use client'
 import { METHOD_PAYMENT, ORDER_REVIEW } from '@/@interface/api/ICart'
 import { URL_CONFIRMED_STEP, URL_PROGRESS_ORDER } from '@/@URLQueries/progressOrderStep'
-import { useGetAllCartProducts } from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { PaymenteCreditCard } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentCheck/PaymenteCreditCard'
 import { PaymentPix } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentCheck/PaymentPix'
@@ -14,8 +14,8 @@ import { useEffect, useState } from 'react'
 const CheckAllMethodsCheck = () => {
   const [refresh, setRefresh] = useState(0)
   const [expired, setExpired] = useState(false)
-  const { data, loading } = useGetAllCartProducts(refresh)
-
+  const { data, loading } = useGetAllCartProducts()
+  console.log(data)
   if (loading) return <GenericLoading />
 
   if (expired || data?.orderReview === ORDER_REVIEW.EXPIRED_ORDER) {
