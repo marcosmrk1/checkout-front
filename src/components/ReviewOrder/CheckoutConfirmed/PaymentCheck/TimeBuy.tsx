@@ -2,12 +2,27 @@
 
 import { Card } from '@/components/ui/card'
 import { useEffect, useState } from 'react'
+import { ORDER_REVIEW } from '@/@interface/api/ICart'
+import usePatchOrderReview from '@/api/hooks/cart/patch/usePatchOrderReview'
 
-const TimeBuy = () => {
-  const [timeLeft, setTimeLeft] = useState(1 * 60)
+interface TimeBuyProps {
+  setExpired: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const TimeBuy = ({ setExpired }: TimeBuyProps) => {
+  const [timeLeft, setTimeLeft] = useState(30 * 1)
+  const [localExpired, setLocalExpired] = useState(false)
+  const { handlePatchOrderReview } = usePatchOrderReview()
 
   useEffect(() => {
-    if (timeLeft <= 0) return
+    if (timeLeft <= 0) {
+      if (!localExpired) {
+        handlePatchOrderReview(ORDER_REVIEW.EXPIRED_ORDER)
+        setLocalExpired(true)
+        setExpired(true)
+      }
+      return
+    }
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
@@ -20,7 +35,7 @@ const TimeBuy = () => {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [timeLeft])
+  }, [timeLeft, localExpired, setExpired, handlePatchOrderReview])
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -32,7 +47,7 @@ const TimeBuy = () => {
     <Card className="w-full rounded-md p-1 items-center bg-card  border-transparent">
       <h2 className="text-xl font-semibold text-center ">
         Tempo restante para finalizar a compra
-        <div className="text-4xl font-bold text-primary">
+        <div className="text-4xl font-bold text-red-500">
           {timeLeft > 0 ? formatTime(timeLeft) : '00:00'}
         </div>
       </h2>
@@ -40,4 +55,5 @@ const TimeBuy = () => {
     </Card>
   )
 }
+
 export { TimeBuy }

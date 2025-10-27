@@ -1,13 +1,10 @@
-export enum IMethodsPayment {
-  Pix = 'pix',
-  CreditCard = 'creditCard',
-  Ticket = 'ticket',
-}
+import { METHOD_PAYMENT } from '@/@interface/api/ICart'
+
 export interface IMethodDescriptionSelect {
   id: number
   title: string
   description: string
   icon: React.ReactNode
   isSelected: boolean
-  method: IMethodsPayment
+  method: METHOD_PAYMENT
 }

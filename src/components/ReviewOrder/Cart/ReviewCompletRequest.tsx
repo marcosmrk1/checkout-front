@@ -1,20 +1,21 @@
-import { ConfirmOrder } from '@/components/ReviewOrder/Cart/ConfirmOrder'
+import { NextStepButtons } from '@/components/ReviewOrder/NextStepButtons'
 import { OrderReview } from '@/components/ReviewOrder/Cart/OrderReview'
 import { OrderSummary } from '@/components/ReviewOrder/Cart/OrderSummary'
-import { TimeBuy } from '@/components/ReviewOrder/Cart/TimeBuy'
+import { TimeBuy } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentCheck/TimeBuy'
 import { UserReadingCard } from '@/components/Shared/UserReading'
+
+import { useState } from 'react'
 
 const ReviewCompletRequestCart = () => {
   return (
     <div className="container grid grid-cols-12 gap-4  ">
       <div className="col-span-12 md:col-span-7 flex flex-col gap-4">
-        <TimeBuy />
         <OrderReview />
       </div>
       <div className="col-span-12 md:col-span-5 flex flex-col gap-4">
         <UserReadingCard />
         <OrderSummary />
-        <ConfirmOrder />
+        <NextStepButtons backLabel="Voltar ao carrinho" />
       </div>
     </div>
   )

@@ -1,8 +1,8 @@
 import { ShoppingCart } from 'lucide-react'
 export const MENU_ITENS_ROUTES = [
   {
-    title: 'Home',
-    url: '#',
+    title: 'Início',
+    url: '/catalog',
     icon: ShoppingCart,
   },
 ]

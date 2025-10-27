@@ -9,9 +9,15 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion'
 import { ChevronDown, ChevronUp, CreditCard, QrCode, Barcode } from 'lucide-react'
-import { IMethodDescriptionSelect, IMethodsPayment } from '@/@interface/IMethodsPayment'
+
 import { Card } from '@/components/ui/card'
-import { CardForm } from '@/components/ReviewOrder/PaymentMethod/Form/Card'
+import { CardCreditForm } from '@/components/ReviewOrder/PaymentMethod/Form/Card'
+import { METHOD_PAYMENT } from '@/@interface/api/ICart'
+import { IMethodDescriptionSelect } from '@/@interface/models/IMethodsPayment'
+interface IPaymentMethodProps {
+  methodPayment: METHOD_PAYMENT
+  setMethodPayment: (method: METHOD_PAYMENT) => void
+}
 
 const methodsPayment: IMethodDescriptionSelect[] = [
   {
@@ -21,7 +27,7 @@ const methodsPayment: IMethodDescriptionSelect[] = [
       'O pagamento via Pix é rápido e seguro. Após a confirmação do pedido, você receberá um código QR ou chave Pix para efetuar o pagamento diretamente do seu aplicativo bancário. A compensação é instantânea, permitindo que seu pedido seja processado imediatamente.',
     icon: <QrCode />,
     isSelected: false,
-    method: IMethodsPayment.Pix,
+    method: METHOD_PAYMENT.PIX,
   },
   {
     id: 2,
@@ -30,7 +36,7 @@ const methodsPayment: IMethodDescriptionSelect[] = [
       'Pague com seu cartão de crédito. Aceitamos as principais bandeiras e você pode parcelar em até 12 vezes.',
     icon: <CreditCard />,
     isSelected: false,
-    method: IMethodsPayment.CreditCard,
+    method: METHOD_PAYMENT.CREDIT_CARD,
   },
   {
     id: 3,
@@ -39,15 +45,13 @@ const methodsPayment: IMethodDescriptionSelect[] = [
       'O boleto bancário pode levar até 2 dias úteis para compensar. Após o pagamento, seu pedido será liberado automaticamente.',
     icon: <Barcode />,
     isSelected: false,
-    method: IMethodsPayment.Ticket,
+    method: METHOD_PAYMENT.PAYMENT_SLIP,
   },
 ]
 
-const PaymentMethod = () => {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-
-  const handleSelect = (id: number) => {
-    setSelectedIndex(id)
+const PaymentMethod = ({ methodPayment, setMethodPayment }: IPaymentMethodProps) => {
+  const handleSelect = (paymenteMethod: METHOD_PAYMENT) => {
+    setMethodPayment(paymenteMethod)
   }
 
   return (
@@ -55,8 +59,15 @@ const PaymentMethod = () => {
       <Accordion
         type="single"
         collapsible
-        value={selectedIndex ? String(selectedIndex) : undefined}
-        onValueChange={(v) => setSelectedIndex(v ? Number(v) : null)}
+        value={
+          methodsPayment.find((m) => m.method === methodPayment)?.id
+            ? String(methodsPayment.find((m) => m.method === methodPayment)!.id)
+            : undefined
+        }
+        onValueChange={(v) => {
+          const method = methodsPayment.find((m) => String(m.id) === v)
+          if (method) setMethodPayment(method.method)
+        }}
       >
         {methodsPayment.map((method) => (
           <AccordionItem
@@ -68,8 +79,8 @@ const PaymentMethod = () => {
               <div className="flex items-center gap-3">
                 <input
                   type="checkbox"
-                  checked={selectedIndex === method.id}
-                  onChange={() => handleSelect(method.id)}
+                  checked={methodPayment === method.method}
+                  onChange={() => handleSelect(method.method)}
                   className="checkbox-custom"
                   style={{
                     background: 'var(--checkbox-bg)',
@@ -90,9 +101,9 @@ const PaymentMethod = () => {
               <div className="p-4 pt-3 border-t ">
                 <p className="p-4 pt-3">{method.description}</p>
                 <div>
-                  {method.method === IMethodsPayment.CreditCard && (
+                  {method.method === METHOD_PAYMENT.CREDIT_CARD && (
                     <>
-                      <CardForm />
+                      <CardCreditForm />
                     </>
                   )}{' '}
                 </div>

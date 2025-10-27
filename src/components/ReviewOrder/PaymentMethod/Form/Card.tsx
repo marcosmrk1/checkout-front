@@ -3,6 +3,15 @@ import { useFormik } from 'formik'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { Button } from '@/components/ui/button'
+import {
+  addCreditCardInfo,
+  CREDIT_CARD_STORAGE_KEY,
+} from '@/utils/localStorage/CreditCard'
+import usePostCardCredit from '@/api/hooks/creditCart/usePost/usePostCardCredit'
+import useGetCreditCard from '@/api/hooks/creditCart/useGet/useGetCreditCard'
+import { GenericLoading } from '@/components/Generic/Loading'
+import { Card } from '@/components/ui/card'
+import { BadgeCheck } from 'lucide-react'
 
 const initialValues = {
   cardNumber: '',
@@ -15,17 +24,35 @@ const initialValues = {
   isDefault: false,
 }
 
-const CardForm = () => {
+const CardCreditForm = () => {
+  const { handleAddProduct } = usePostCardCredit()
+  const { data, loading } = useGetCreditCard()
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
       const payload = {
-        last4Number: values.cardNumber.slice(-4),
+        ...values,
+        last4Number: values.cardNumber.slice(-4), // Adiciona o campo obrigatório
       }
+      handleAddProduct(payload)
     },
     validationSchema: CardYup,
   })
-
+  if (loading) return <GenericLoading />
+  if (data?.last4Number) {
+    return (
+      <Card className="max-w-md mx-auto mt-8 p-6 flex flex-col items-center bg-green-50 border-green-200 shadow-md">
+        <BadgeCheck className="w-10 h-10 text-green-600 mb-2" />
+        <h2 className="text-lg font-semibold text-green-700 mb-1">
+          Cartão já cadastrado!
+        </h2>
+        <p className="text-base text-gray-700">
+          Você já possui um cartão cadastrado com final{' '}
+          <span className="font-bold">{data.last4Number}</span>
+        </p>
+      </Card>
+    )
+  }
   return (
     <form onSubmit={formik.handleSubmit} className="max-w-[700px] mx-auto">
       <div className="flex gap-6">
@@ -167,8 +194,12 @@ const CardForm = () => {
               Este é meu cartão padrão
             </label>
           </div>
-          <Button type="submit" className="mt-4 px-6 py-2 ">
-            Confirmar
+          <Button
+            type="submit"
+            className="mt-4 px-6 py-2"
+            disabled={formik.isSubmitting}
+          >
+            {formik.isSubmitting ? 'Salvando...' : 'Confirmar'}
           </Button>
         </div>
       </div>
@@ -176,4 +207,4 @@ const CardForm = () => {
   )
 }
 
-export { CardForm }
+export { CardCreditForm }

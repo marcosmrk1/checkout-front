@@ -21,7 +21,7 @@ const ThemeSwitcher = () => {
 
   return (
     <div className="flex items-center">
-      <div className="relative inline-block">
+      <div className="relative inline-block w-14 h-7">
         <input
           type="checkbox"
           id={id}
@@ -31,22 +31,22 @@ const ThemeSwitcher = () => {
         />
         <label
           htmlFor={id}
-          className={`block w-13 h-6 rounded-full cursor-pointer transition-colors ${
+          className={`block w-14 h-7 rounded-full cursor-pointer transition-colors ${
             isDark ? 'bg-[#1c5e5c]' : 'bg-gray-300'
           }`}
         >
           <span
-            className={`absolute block w-5 h-5 bg-white rounded-full top-[2px] flex items-center justify-center transition-transform duration-300 ease-in-out ${
-              isDark ? 'translate-x-[29px]' : 'translate-x-[2px]'
+            className={`absolute top-1 left-1 flex items-center justify-center w-5 h-5 bg-white rounded-full shadow transition-transform duration-300 ease-in-out ${
+              isDark ? 'translate-x-7' : ''
             }`}
           >
             {isDark ? (
-              <Moon className="h-3 w-6 text-blue-500" />
+              <Moon className="h-20 w-4 text-blue-600" />
             ) : (
-              <Sun className="h-4 w-7 text-yellow-400" />
+              <Sun className="h-20 w-4 text-yellow-400" />
             )}
           </span>
-        </label>{' '}
+        </label>
       </div>
     </div>
   )
