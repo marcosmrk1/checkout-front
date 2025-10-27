@@ -17,7 +17,7 @@ const OrderReview = () => {
   const { handleAddQuantity, handleRemoveQuantity } = usePatchQuantity()
   const { deleteItemCart } = useDeleteItemCart()
   if (loading) return <GenericLoading />
-  if (!success) return <GenericError />
+  // if (!success) return <GenericError />
   if (!data || !data.itens || data.itens.length === 0) {
     return (
       <Card className="w-full rounded-md p-4 bg-card border-transparent">

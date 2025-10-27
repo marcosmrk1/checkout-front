@@ -63,7 +63,7 @@ const ListProductPrice = () => {
 
               <div className="group/price relative flex h-12 items-center pt-2">
                 <div className="flex items-center gap-4 transition-opacity duration-300 group-hover/price:opacity-0">
-                  <span className="text-2xl font-bold  from-primary to-primary/80 bg-clip-text  ">
+                  <span className="text-2xl font-bold  from-primary to-primary/80 bg-clip-text text-primary  ">
                     {priceFormatedBRL(product.price)}
                   </span>
                   <span className="text-xs text-green-600 dark:text-green-400 font-semibold">
