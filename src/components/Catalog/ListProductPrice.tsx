@@ -13,7 +13,7 @@ import { useCartStore } from '@/store/cartStore'
 import usePostCartProducts from '@/api/hooks/cart/post/usePostCartProducts'
 
 const ListProductPrice = () => {
-  const { data, success, message, loading } = useGetAllProductStore()
+  const { data, success, loading } = useGetAllProductStore()
   const { handleAddProduct } = usePostCartProducts()
   if (!success) {
     return (

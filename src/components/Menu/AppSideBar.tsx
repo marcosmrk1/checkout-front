@@ -24,7 +24,7 @@ const AppSideBar = () => {
           <div className="flex items-center gap-2">
             <img
               alt="Logo CN Shopping"
-              src="/image/logo.png"
+              src="/images/logo.png"
               className="h-12 w-12 rounded-lg border border-gray-200 shadow-md object-cover transition-transform duration-200 hover:scale-105 hover:shadow-lg bg-white"
             />
             <span className="font-semibold"> CN Shopping</span>
