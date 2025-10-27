@@ -5,13 +5,11 @@ import { Button } from '@/components/ui/button'
 import { ShoppingCart, Minus, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { GenericLoading } from '@/components/Generic/Loading'
-
-import { ICartItem } from '@/@interface/api/ICart'
 import { IProduct } from '@/@interface/api/IProduct'
 import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
-import { useCartStore } from '@/store/cartStore'
 import usePatchQuantity from '@/api/hooks/cart/patch/usePatchQuantity'
 import useDeleteItemCart from '@/api/hooks/cart/del/useDeleteItemCart'
+import { priceFormatedBRL } from '@/utils/function/priceFormated'
 interface product {
   id: number
   name: string
@@ -100,14 +98,14 @@ const OrderReview = ({}: {}) => {
               </div>
             </div>
             <p className="font-semibold">
-              R$ {(item.product.price * item.quantity).toFixed(2)}
+              {priceFormatedBRL(item.product.price * item.quantity)}
             </p>
           </div>
         ))}
       </div>
       <div className="border-t my-2 flex justify-between pt-4">
         <span className="font-semibold">Total:</span>
-        <span className="font-bold">R$ {data.total.toFixed(2)}</span>
+        <span className="font-bold">{priceFormatedBRL(data.total)}</span>
       </div>
     </Card>
   )

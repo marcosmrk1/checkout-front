@@ -3,6 +3,7 @@
 import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { Card } from '@/components/ui/card'
+import { priceFormatedBRL } from '@/utils/function/priceFormated'
 
 const OrderSummary = () => {
   const { data, loading } = useGetAllCartProducts()
@@ -15,7 +16,9 @@ const OrderSummary = () => {
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <span className="font-bold text-lg">Total</span>
-          <span className="font-bold text-2xl text-primary">R$ {total.toFixed(2)}</span>
+          <span className="font-bold text-2xl text-primary">
+            {priceFormatedBRL(total)}
+          </span>
         </div>
         <div className="text-xs">
           <p>
