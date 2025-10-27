@@ -8,6 +8,13 @@ import useDeleteCart from '@/api/hooks/cart/del/useDeleteCart'
 
 export default function OrderConfirmed() {
   const router = useRouter()
+  const { handleDelete, loading } = useDeleteCart()
+
+  const deleteCart = async () => {
+    await handleDelete()
+    if (loading) return <GenericLoading />
+    router.push('/')
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] gap-10 p-8">
@@ -24,7 +31,7 @@ export default function OrderConfirmed() {
         <br />
         Em breve você receberá as informações de acompanhamento no seu e-mail.
       </p>
-      <Button onClick={() => router.push('/')} className={defaultStyleButton}>
+      <Button onClick={() => deleteCart()} className={defaultStyleButton}>
         Voltar para a loja
       </Button>
     </div>
