@@ -16,6 +16,7 @@ import { priceFormatedBRL } from '@/utils/function/priceFormated'
 const ListProductPrice = () => {
   const { data, success, loading } = useGetAllProductStore()
   const { handleAddProduct } = usePostCartProducts()
+  if (loading) return <GenericLoading />
   if (!success) {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-red-500">
@@ -24,7 +25,6 @@ const ListProductPrice = () => {
       </div>
     )
   }
-  if (loading) return <GenericLoading />
   const handleAddToCart = (product: IProduct) => {
     handleAddProduct(product)
   }
