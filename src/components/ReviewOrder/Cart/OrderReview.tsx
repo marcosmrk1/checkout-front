@@ -8,10 +8,10 @@ import { GenericLoading } from '@/components/Generic/Loading'
 
 import { ICartItem } from '@/@interface/api/ICart'
 import { IProduct } from '@/@interface/api/IProduct'
-import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
 import { useCartStore } from '@/store/cartStore'
-import usePatchQuantity from '@/api/service/hooks/cart/patch/usePatchQuantity'
-import useDeleteItemCart from '@/api/service/hooks/cart/del/useDeleteItemCart'
+import usePatchQuantity from '@/api/hooks/cart/patch/usePatchQuantity'
+import useDeleteItemCart from '@/api/hooks/cart/del/useDeleteItemCart'
 interface product {
   id: number
   name: string

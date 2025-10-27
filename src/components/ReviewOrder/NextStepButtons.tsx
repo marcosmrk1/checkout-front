@@ -16,8 +16,8 @@ import { GenericLoading } from '@/components/Generic/Loading'
 import { use, useEffect, useState } from 'react'
 import { getCreditCardInfo } from '@/utils/localStorage/CreditCard'
 import { ShowGenericToast } from '@/components/Generic/Toast'
-import usePatchMethodPayment from '@/api/service/hooks/cart/patch/usePatchMethodPayment'
-import useGetCreditCard from '@/api/service/hooks/creditCart/useGet/useGetCreditCard'
+import usePatchMethodPayment from '@/api/hooks/cart/patch/usePatchMethodPayment'
+import useGetCreditCard from '@/api/hooks/creditCart/useGet/useGetCreditCard'
 
 interface ButtonProps {
   backLabel?: string

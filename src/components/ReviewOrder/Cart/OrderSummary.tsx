@@ -1,6 +1,6 @@
 'use client'
 
-import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { Card } from '@/components/ui/card'
 

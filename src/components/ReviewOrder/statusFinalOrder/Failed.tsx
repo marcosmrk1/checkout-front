@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
-import usePatchOrderReview from '@/api/service/hooks/cart/patch/usePatchOrderReview'
+import usePatchOrderReview from '@/api/hooks/cart/patch/usePatchOrderReview'
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
 import { GenericLoading } from '@/components/Generic/Loading'
 

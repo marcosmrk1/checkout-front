@@ -7,8 +7,8 @@ import {
   addCreditCardInfo,
   CREDIT_CARD_STORAGE_KEY,
 } from '@/utils/localStorage/CreditCard'
-import usePostCardCredit from '@/api/service/hooks/creditCart/usePost/usePostCardCredit'
-import useGetCreditCard from '@/api/service/hooks/creditCart/useGet/useGetCreditCard'
+import usePostCardCredit from '@/api/hooks/creditCart/usePost/usePostCardCredit'
+import useGetCreditCard from '@/api/hooks/creditCart/useGet/useGetCreditCard'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { Card } from '@/components/ui/card'
 import { BadgeCheck } from 'lucide-react'

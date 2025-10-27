@@ -1,14 +1,15 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@radix-ui/react-label'
 import { Switch } from '@/components/ui/switch'
 import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
+import { ShowGenericToast } from '@/components/Generic/Toast'
 
 const LoginYup = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
@@ -40,18 +41,27 @@ const LoginForm = () => {
       if (result?.ok) {
         router.push('/catalog')
       }
-      // Aqui você pode tratar erro de login se quiser
+      if (result?.error) {
+        ShowGenericToast({ type: 'error', message: 'Credências inválidas' })
+      }
     },
   })
-
+  const searchParams = useSearchParams()
+  const error = searchParams.get('error')
+  {
+    error === 'CredentialsSignin' && (
+      <div className="text-red-600 mb-4">
+        Usuário ou senha inválidos. Tente novamente.
+      </div>
+    )
+  }
   return (
     <form onSubmit={formik.handleSubmit} className="w-full max-w-md space-y-6">
       <div className="text-center space-y-2">
         <h1 className="text-3xl font-bold ">Seja bem-vindo </h1>
         <p>
-          breve descrição sobre o projeto
+          Loja online
           <br />
-          algo complementar nao obrigatorio.
         </p>
       </div>
 
@@ -140,15 +150,6 @@ const LoginForm = () => {
         </svg>
         <span className="font-medium ">Continue with Google</span>
       </Button>
-
-      <div className="text-center">
-        <span className="text-sm ">
-          Don't have an account?{' '}
-          <button className="text-purple-600 hover:text-purple-700 font-medium cursor-pointer">
-            Sign up
-          </button>
-        </span>
-      </div>
     </form>
   )
 }

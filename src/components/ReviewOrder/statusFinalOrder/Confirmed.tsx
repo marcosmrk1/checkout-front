@@ -2,9 +2,9 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
-import usePatchOrderReview from '@/api/service/hooks/cart/patch/usePatchOrderReview'
+import usePatchOrderReview from '@/api/hooks/cart/patch/usePatchOrderReview'
 import { GenericLoading } from '@/components/Generic/Loading'
-import useDeleteCart from '@/api/service/hooks/cart/del/useDeleteCart'
+import useDeleteCart from '@/api/hooks/cart/del/useDeleteCart'
 
 export default function OrderConfirmed() {
   const router = useRouter()

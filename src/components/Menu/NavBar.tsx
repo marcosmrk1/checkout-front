@@ -15,15 +15,16 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { CartItemsList } from '@/components/Menu/CartItemsList'
 import { signOut } from 'next-auth/react'
-import useGetAllProductStore from '@/api/service/hooks/products/useGet/useGetAllProductStore'
-import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import useGetAllProductStore from '@/api/hooks/products/useGet/useGetAllProductStore'
 import { usePathname } from 'next/navigation'
+import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
+import { useGetUser } from '@/api/hooks/user/useGet/useGetUser'
 
 const NavBarHeader = () => {
   const { data } = useGetAllCartProducts()
   const quantityItemsInCart = data?.totalQuantity || 0
   const pathname = usePathname()
-
+  const { user } = useGetUser()
   return (
     <div className="flex h-16 items-center justify-between px-4 bg-sidebar">
       <div className="flex items-center space-x-2">
@@ -55,7 +56,7 @@ const NavBarHeader = () => {
         </Link>
       </nav>
 
-      <div className="flex items-center">
+      <div className="flex items-center gap-6">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="relative">
@@ -87,29 +88,30 @@ const NavBarHeader = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
+              {user?.image ? (
+                <img
+                  src={user.image}
+                  alt="Avatar"
+                  className="h-8 w-8 rounded-full object-cover"
+                />
+              ) : (
+                <User className="h-5 w-5" />
+              )}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-64">
             <DropdownMenuLabel>
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">João Silva</p>
-                <p className="text-xs leading-none text-muted-foreground">
-                  joao@email.com
-                </p>
+                <p className="text-sm font-medium leading-none">{user?.name}</p>
+                <p className="text-xs leading-none text-muted-foreground"></p>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+            <DropdownMenuItem asChild></DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/pedidos" className="cursor-pointer">
-                <Package className="mr-2 h-4 w-4" />
-                <span>Meus Pedidos</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/configuracoes" className="cursor-pointer">
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Configurações</span>
+              <Link href="/review-order" className="cursor-pointer">
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                <span>Carrinho</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />

@@ -8,9 +8,9 @@ import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
 import { Heart, ShoppingCart, Star, Eye } from 'lucide-react'
 import { useEffect } from 'react'
 import { useProductStore } from '@/store/productStore'
-import useGetAllProductStore from '@/api/service/hooks/products/useGet/useGetAllProductStore'
+import useGetAllProductStore from '@/api/hooks/products/useGet/useGetAllProductStore'
 import { useCartStore } from '@/store/cartStore'
-import usePostCartProducts from '@/api/service/hooks/cart/post/usePostCartProducts'
+import usePostCartProducts from '@/api/hooks/cart/post/usePostCartProducts'
 
 const ListProductPrice = () => {
   const { data, success, message, loading } = useGetAllProductStore()

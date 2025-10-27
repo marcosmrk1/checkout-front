@@ -3,7 +3,7 @@
 import { Card } from '@/components/ui/card'
 import { useEffect, useState } from 'react'
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
-import usePatchOrderReview from '@/api/service/hooks/cart/patch/usePatchOrderReview'
+import usePatchOrderReview from '@/api/hooks/cart/patch/usePatchOrderReview'
 
 interface TimeBuyProps {
   setExpired: React.Dispatch<React.SetStateAction<boolean>>

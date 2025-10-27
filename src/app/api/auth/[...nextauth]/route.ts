@@ -5,8 +5,20 @@ import { redirect } from 'next/navigation'
 import NextAuth from 'next-auth'
 
 const users = [
-  { id: '1', name: 'Marco', email: 'marcospl.134@gmaill.com', password: '1234' },
-  { id: '2', name: 'Usuário Teste', email: 'teste@gmail', password: '1234' },
+  {
+    id: '1',
+    name: 'Marcos',
+    email: 'marcospl.134@gmaill.com',
+    password: '1234',
+    image: '/image/peopleMarcos.jpg',
+  },
+  {
+    id: '2',
+    name: 'Leandra',
+    email: 'Leandra@gmail',
+    password: '1234',
+    image: '/image/peopleLeandra.jpg',
+  },
 ]
 const authOptions = {
   pages: {

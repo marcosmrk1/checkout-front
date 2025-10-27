@@ -1,10 +1,10 @@
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
-import usePatchOrderReview from '@/api/service/hooks/cart/patch/usePatchOrderReview'
+import usePatchOrderReview from '@/api/hooks/cart/patch/usePatchOrderReview'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Barcode } from 'lucide-react'
 import { useState } from 'react'
-import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
 
 const PaymentSlip = () => {
