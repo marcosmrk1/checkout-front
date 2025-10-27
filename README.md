@@ -29,7 +29,7 @@ Certifique-se de ter o [Node.js](https://nodejs.org/) instalado. Você pode usar
     # Necessário para autenticação local via NextAuth
     NEXTAUTH_URL=http://localhost:3000
     # Gere um segredo de 32 caracteres usando o link abaixo e cole aqui
-    NEXTAUTH_SECRET= (Use [https://generate-secret.vercel.app/32](https://generate-secret.vercel.app/32) para gerar)
+    NEXTAUTH_SECRET= (Use [https://generate-secret.vercel.app/32]
     ```
 
 3.  **Inicie o servidor de desenvolvimento:**
