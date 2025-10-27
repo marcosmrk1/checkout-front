@@ -106,7 +106,8 @@ export function updateOrderReview(
     | ORDER_REVIEW.REVIEW_CART
     | ORDER_REVIEW.WAIT_CONFIRM
     | ORDER_REVIEW.CONFIRMED_ORDER
-    | ORDER_REVIEW.EXPIRED_ORDER,
+    | ORDER_REVIEW.EXPIRED_ORDER
+    | ORDER_REVIEW.FAILED,
 ) {
   const cart = getCart()
   cart.orderReview = orderReview
