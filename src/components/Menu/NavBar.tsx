@@ -25,6 +25,7 @@ const NavBarHeader = () => {
   const quantityItemsInCart = data?.totalQuantity || 0
   const pathname = usePathname()
   const { user } = useGetUser()
+
   return (
     <div className="flex h-16 items-center justify-between px-4 bg-sidebar">
       <div className="flex items-center space-x-2">

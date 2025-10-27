@@ -11,19 +11,16 @@ import { useProductStore } from '@/store/productStore'
 import useGetAllProductStore from '@/api/hooks/products/useGet/useGetAllProductStore'
 import { useCartStore } from '@/store/cartStore'
 import usePostCartProducts from '@/api/hooks/cart/post/usePostCartProducts'
+import { priceFormatedBRL } from '@/utils/function/priceFormated'
+import GenericError from '@/components/Generic/Error'
 
 const ListProductPrice = () => {
   const { data, success, loading } = useGetAllProductStore()
   const { handleAddProduct } = usePostCartProducts()
-  if (!success) {
-    return (
-      <div className="flex flex-col items-center justify-center h-64 text-red-500">
-        <span>Erro ao carregar produtos.</span>
-        <span>{success}</span>
-      </div>
-    )
-  }
   if (loading) return <GenericLoading />
+  if (!success) {
+    return <GenericError />
+  }
   const handleAddToCart = (product: IProduct) => {
     handleAddProduct(product)
   }
@@ -67,7 +64,7 @@ const ListProductPrice = () => {
               <div className="group/price relative flex h-12 items-center pt-2">
                 <div className="flex items-center gap-4 transition-opacity duration-300 group-hover/price:opacity-0">
                   <span className="text-2xl font-bold  from-primary to-primary/80 bg-clip-text  ">
-                    R$ {product.price},00
+                    {priceFormatedBRL(product.price)}
                   </span>
                   <span className="text-xs text-green-600 dark:text-green-400 font-semibold">
                     Em estoque
@@ -81,7 +78,7 @@ const ListProductPrice = () => {
                       className={`${defaultStyleButton} px-4 flex-1 shadow-md hover:shadow-lg transition-shadow`}
                     >
                       <span className="font-semibold">
-                        Comprar R$ {product.price},00
+                        Comprar {priceFormatedBRL(product.price)}
                       </span>
                     </Button>
                   </div>

@@ -14,11 +14,12 @@ import { OrderFailed } from '@/components/ReviewOrder/statusFinalOrder/Failed'
 import { deleteCart } from '@/utils/localStorage/Cart'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import GenericError from '@/components/Generic/Error'
 
 const CheckAllMethodsCheck = () => {
   const [expired, setExpired] = useState(false)
   const [counter, setCounter] = useState(6)
-  const { data, loading } = useGetAllCartProducts()
+  const { data, loading, success } = useGetAllCartProducts()
   const { handleDelete, loading: loadingDeleteCard } = useDeleteCart()
   const router = useRouter()
 
@@ -40,6 +41,8 @@ const CheckAllMethodsCheck = () => {
 
   if (loading) return <GenericLoading />
   if (loadingDeleteCard) return <GenericLoading />
+  if (!success) return <GenericError />
+
   if (expired || data?.orderReview === ORDER_REVIEW.EXPIRED_ORDER) {
     return <OrderExpired />
   }

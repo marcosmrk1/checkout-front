@@ -6,17 +6,18 @@ import { Barcode } from 'lucide-react'
 import { useState } from 'react'
 import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
+import GenericError from '@/components/Generic/Error'
 
 const PaymentSlip = () => {
-  const { handlePatchOrderReview, success, loading } = usePatchOrderReview()
-  const { data, loading: loadingProductsCard } = useGetAllCartProducts()
+  const { handlePatchOrderReview, loading } = usePatchOrderReview()
+  const { data, loading: loadingProductsCard, success } = useGetAllCartProducts()
 
   const handleConfirm = async () => {
     await handlePatchOrderReview(ORDER_REVIEW.CONFIRMED_ORDER)
   }
 
   if (loadingProductsCard) return <GenericLoading />
-
+  if (!success) return <GenericError />
   if (data?.orderReview === ORDER_REVIEW.WAIT_CONFIRM) {
     return (
       <Card className="max-w-lg mx-auto mt-10 shadow-lg">

@@ -4,11 +4,17 @@ import { ORDER_REVIEW } from '@/@interface/api/ICart'
 import usePatchOrderReview from '@/api/hooks/cart/patch/usePatchOrderReview'
 import { GenericLoading } from '@/components/Generic/Loading'
 import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
+import GenericError from '@/components/Generic/Error'
 
 const PaymenteCreditCard = () => {
   const { handlePatchOrderReview, success, loading } = usePatchOrderReview()
-  const { data, loading: loadingProductsCard } = useGetAllCartProducts()
-
+  const {
+    data,
+    loading: loadingProductsCard,
+    success: sucessAllCartProduct,
+  } = useGetAllCartProducts()
+  if (!sucessAllCartProduct) return <GenericError />
+  if (!success) return <GenericError />
   const handleConfirm = async () => {
     await handlePatchOrderReview(ORDER_REVIEW.CONFIRMED_ORDER)
   }

@@ -13,10 +13,8 @@ import { ReviewCompletRequestCart } from '@/components/ReviewOrder/Cart/ReviewCo
 import { CheckAllMethodsCheck } from '@/components/ReviewOrder/CheckoutConfirmed/CheckAllMethodsCheck'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
-import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
 

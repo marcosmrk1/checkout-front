@@ -1,10 +1,7 @@
 import { NextStepButtons } from '@/components/ReviewOrder/NextStepButtons'
 import { OrderReview } from '@/components/ReviewOrder/Cart/OrderReview'
 import { OrderSummary } from '@/components/ReviewOrder/Cart/OrderSummary'
-import { TimeBuy } from '@/components/ReviewOrder/CheckoutConfirmed/PaymentCheck/TimeBuy'
 import { UserReadingCard } from '@/components/Shared/UserReading'
-
-import { useState } from 'react'
 
 const ReviewCompletRequestCart = () => {
   return (

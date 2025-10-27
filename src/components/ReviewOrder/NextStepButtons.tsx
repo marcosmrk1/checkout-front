@@ -18,6 +18,7 @@ import { getCreditCardInfo } from '@/utils/localStorage/CreditCard'
 import { ShowGenericToast } from '@/components/Generic/Toast'
 import usePatchMethodPayment from '@/api/hooks/cart/patch/usePatchMethodPayment'
 import useGetCreditCard from '@/api/hooks/creditCart/useGet/useGetCreditCard'
+import GenericError from '@/components/Generic/Error'
 
 interface ButtonProps {
   backLabel?: string
@@ -30,7 +31,7 @@ const NextStepButtons = ({
   methodPayment,
 }: ButtonProps) => {
   const { handleChangeMethodPayment, loading } = usePatchMethodPayment()
-  const { data, loading: loadingCardCredit } = useGetCreditCard()
+  const { data, loading: loadingCardCredit, success } = useGetCreditCard()
   const router = useRouter()
   const searchParams = useSearchParams()
   const progressOrder = searchParams.get(URL_PROGRESS_ORDER)
@@ -97,6 +98,8 @@ const NextStepButtons = ({
   if (loadingCardCredit) {
     return <GenericLoading loadingMessage="Carregando informações do usuário" />
   }
+  if (!success) return <GenericError />
+
   return (
     <Card className="w-full rounded-md p-4 bg-card border-transparent">
       <div className="flex   gap-3 w-full ">

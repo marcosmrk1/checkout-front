@@ -1,21 +1,26 @@
 'use client'
 
 import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
+import GenericError from '@/components/Generic/Error'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { Card } from '@/components/ui/card'
+import { priceFormatedBRL } from '@/utils/function/priceFormated'
 
 const OrderSummary = () => {
-  const { data, loading } = useGetAllCartProducts()
+  const { data, loading, success } = useGetAllCartProducts()
   const total = data?.total ?? 0
   const itemsCount = data?.totalQuantity ?? 0
   if (loading) return <GenericLoading />
+  if (!success) return <GenericError />
   return (
     <Card className="w-full rounded-md p-4 bg-card border-transparent sticky top-4">
       <h3 className="font-bold text-lg mb-4">Resumo do Pedido</h3>
       <div className="space-y-3">
         <div className="flex justify-between items-center">
           <span className="font-bold text-lg">Total</span>
-          <span className="font-bold text-2xl text-primary">R$ {total.toFixed(2)}</span>
+          <span className="font-bold text-2xl text-primary">
+            {priceFormatedBRL(total)}
+          </span>
         </div>
         <div className="text-xs">
           <p>

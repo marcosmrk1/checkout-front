@@ -7,11 +7,13 @@ import { GenericLoading } from '@/components/Generic/Loading'
 import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
 import { useSearchParams } from 'next/navigation'
 import { URL_FORCED_ERRO_PIX, URL_FORCED_ERROR } from '@/@URLQueries/UforcedError'
+import GenericError from '@/components/Generic/Error'
 
 const PaymentPix = () => {
   const { handlePatchOrderReview, loading } = usePatchOrderReview()
-  const { data, loading: loadingProductsCard } = useGetAllCartProducts()
+  const { data, loading: loadingProductsCard, success } = useGetAllCartProducts()
   const searchParams = useSearchParams()
+
   const forcedError = searchParams.get(URL_FORCED_ERROR)
   const handleConfirm = async () => {
     if (forcedError === URL_FORCED_ERRO_PIX) {
@@ -22,6 +24,7 @@ const PaymentPix = () => {
   }
 
   if (loadingProductsCard) return <GenericLoading />
+  if (!success) return <GenericError />
 
   if (data?.orderReview === ORDER_REVIEW.WAIT_CONFIRM) {
     return (
