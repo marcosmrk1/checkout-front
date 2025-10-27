@@ -109,7 +109,10 @@ const NavBarHeader = () => {
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild></DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/review-order" className="cursor-pointer">
+              <Link
+                href={`/review-order?${URL_PROGRESS_ORDER}=${URL_KART_STEP}`}
+                className="cursor-pointer"
+              >
                 <ShoppingCart className="mr-2 h-4 w-4 text-primary" />
                 <span className="text-primary">Carrinho</span>
               </Link>
