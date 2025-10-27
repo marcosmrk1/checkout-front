@@ -47,7 +47,7 @@ O sistema estará disponível em `http://localhost:3000`.
 
 Você pode acessar o sistema de duas formas:
 
-### 1. Acesso Local (Credenciais Padrão)
+### 1. Acesso mockado (Credenciais Padrão)
 
 Use uma das seguintes contas de usuário para testar o login localmente:
 
