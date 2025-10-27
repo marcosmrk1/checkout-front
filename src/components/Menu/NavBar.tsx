@@ -15,10 +15,10 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { CartItemsList } from '@/components/Menu/CartItemsList'
 import { signOut } from 'next-auth/react'
-import useGetAllProductStore from '@/api/hooks/products/useGet/useGetAllProductStore'
 import { usePathname } from 'next/navigation'
 import useGetAllCartProducts from '@/api/hooks/cart/get/useGetAllCartProducts'
 import { useGetUser } from '@/api/hooks/user/useGet/useGetUser'
+import { URL_KART_STEP, URL_PROGRESS_ORDER } from '@/@URLQueries/uprogressOrderStep'
 
 const NavBarHeader = () => {
   const { data } = useGetAllCartProducts()
@@ -45,7 +45,7 @@ const NavBarHeader = () => {
           Início
         </Link>
         <Link
-          href="/review-order"
+          href={`/review-order?${URL_PROGRESS_ORDER}=${URL_KART_STEP}`}
           className={
             pathname === '/review-order'
               ? 'text-sm font-medium text-primary   rounded transition-colors'
@@ -126,7 +126,6 @@ const NavBarHeader = () => {
         </DropdownMenu>
       </div>
     </div>
-    // <div>qas</div>
   )
 }
 export { NavBarHeader }
