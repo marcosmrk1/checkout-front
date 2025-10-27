@@ -1,6 +1,6 @@
 # 🛒 CnShopping
 
-Bem-vindo ao **CnShopping**, sua plataforma de e-commerce completa. Este projeto demonstra um fluxo de compra do início ao fim, incluindo autenticação, catálogo de produtos, gerenciamento de carrinho e diversas opções de pagamento.
+Bem-vindo ao **CnShopping**. Este projeto  de teste técnico .  incluindo autenticação , catálogo de produtos, gerenciamento de carrinho e diversas opções de pagamento.
 
 ## 🚀 Começando
 
