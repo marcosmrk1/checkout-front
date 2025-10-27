@@ -2,9 +2,13 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { defaultStyleButton } from '@/utils/constantsStyleDefault/Button'
+import usePatchOrderReview from '@/api/service/hooks/cart/patch/usePatchOrderReview'
+import { GenericLoading } from '@/components/Generic/Loading'
+import useDeleteCart from '@/api/service/hooks/cart/del/useDeleteCart'
 
 export default function OrderConfirmed() {
   const router = useRouter()
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] gap-10 p-8">
       <Image

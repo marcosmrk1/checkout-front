@@ -1,10 +1,10 @@
 import { ORDER_REVIEW } from '@/@interface/api/ICart'
 import { ShowGenericToast } from '@/components/Generic/Toast'
-import { useCartStoreReview } from '@/store/cartStore'
+import { useCartStore } from '@/store/cartStore'
 import { useCallback } from 'react'
 
 const usePatchOrderReview = () => {
-  const { patchOrderReviewCart, loading, success, errors } = useCartStoreReview()
+  const { patchOrderReviewCart, loading, success, errors } = useCartStore()
 
   const handlePatchOrderReview = useCallback(
     async (orderReview: ORDER_REVIEW) => {
@@ -17,6 +17,10 @@ const usePatchOrderReview = () => {
         })
         return
       }
+      ShowGenericToast({
+        type: 'error',
+        message: 'Pedido falhou, tente novamente',
+      })
     },
     [patchOrderReviewCart, success, errors],
   )

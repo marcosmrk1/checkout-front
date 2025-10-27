@@ -3,23 +3,22 @@ import usePatchOrderReview from '@/api/service/hooks/cart/patch/usePatchOrderRev
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { QrCode } from 'lucide-react'
-import { useState } from 'react'
 import { GenericLoading } from '@/components/Generic/Loading'
 import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import { useSearchParams } from 'next/navigation'
+import { URL_FORCED_ERRO_PIX, URL_FORCED_ERROR } from '@/@URLQueries/UforcedError'
 
-interface PaymentPixProps {
-  setRefresh: React.Dispatch<React.SetStateAction<number>>
-}
-
-const PaymentPix = ({ setRefresh }: PaymentPixProps) => {
-  const { handlePatchOrderReview, success, loading } = usePatchOrderReview()
+const PaymentPix = () => {
+  const { handlePatchOrderReview, loading } = usePatchOrderReview()
   const { data, loading: loadingProductsCard } = useGetAllCartProducts()
-  const [clicked, setClicked] = useState(false)
-
+  const searchParams = useSearchParams()
+  const forcedError = searchParams.get(URL_FORCED_ERROR)
   const handleConfirm = async () => {
-    setClicked(true)
+    if (forcedError === URL_FORCED_ERRO_PIX) {
+      await handlePatchOrderReview(ORDER_REVIEW.FAILED)
+      return
+    }
     await handlePatchOrderReview(ORDER_REVIEW.CONFIRMED_ORDER)
-    if (success && setRefresh) setRefresh((prev) => prev + 1)
   }
 
   if (loadingProductsCard) return <GenericLoading />

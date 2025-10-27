@@ -7,11 +7,7 @@ import { useState } from 'react'
 import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
 import { GenericLoading } from '@/components/Generic/Loading'
 
-interface PaymentSlipProps {
-  setRefresh: React.Dispatch<React.SetStateAction<number>>
-}
-
-const PaymentSlip = ({ setRefresh }: PaymentSlipProps) => {
+const PaymentSlip = () => {
   const { handlePatchOrderReview, success, loading } = usePatchOrderReview()
   const { data, loading: loadingProductsCard } = useGetAllCartProducts()
 

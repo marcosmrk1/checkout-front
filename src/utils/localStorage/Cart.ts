@@ -35,7 +35,9 @@ export function getCart(): ICart {
   localStorage.removeItem(LOCA_STORAGE_CART)
   return initialValuesCart
 }
-
+export function deleteCart() {
+  localStorage.setItem(LOCA_STORAGE_CART, JSON.stringify(initialValuesCart))
+}
 export function setCart(cart: ICart) {
   localStorage.setItem(LOCA_STORAGE_CART, JSON.stringify(cart))
 }

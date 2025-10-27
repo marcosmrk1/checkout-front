@@ -4,7 +4,7 @@ import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartPro
 import { GenericLoading } from '@/components/Generic/Loading'
 import { Card } from '@/components/ui/card'
 
-const OrderSummary = ({ refresh }: { refresh: number }) => {
+const OrderSummary = () => {
   const { data, loading } = useGetAllCartProducts()
   const total = data?.total ?? 0
   const itemsCount = data?.totalQuantity ?? 0

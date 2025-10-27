@@ -1,6 +1,7 @@
 'use client'
 
 import { METHOD_PAYMENT, ORDER_REVIEW } from '@/@interface/api/ICart'
+import { URL_FORCED_ERROR, URL_FORCED_ERRO_PIX } from '@/@URLQueries/UforcedError'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ArrowLeft, Check } from 'lucide-react'
@@ -10,7 +11,7 @@ import {
   URL_KART_STEP,
   URL_PAYMENT_STEP,
   URL_CONFIRMED_STEP,
-} from '@/@URLQueries/progressOrderStep'
+} from '@/@URLQueries/uprogressOrderStep'
 import { GenericLoading } from '@/components/Generic/Loading'
 import { use, useEffect, useState } from 'react'
 import { getCreditCardInfo } from '@/utils/localStorage/CreditCard'
@@ -20,7 +21,7 @@ import useGetCreditCard from '@/api/service/hooks/creditCart/useGet/useGetCredit
 
 interface ButtonProps {
   backLabel?: string
-  setRefresh?: (value: number) => void
+
   methodPayment?: METHOD_PAYMENT
 }
 
@@ -63,6 +64,12 @@ const NextStepButtons = ({
     if (methodPayment && routeActualPayment) {
       await handleChangeMethodPayment(methodPayment)
       if (loading) return <GenericLoading />
+      if (methodPayment === METHOD_PAYMENT.PIX) {
+        router.push(
+          `/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}&${URL_FORCED_ERROR}=${URL_FORCED_ERRO_PIX}`,
+        )
+        return
+      }
       router.push(`/review-order?${URL_PROGRESS_ORDER}=${URL_CONFIRMED_STEP}`)
     }
   }
@@ -86,6 +93,7 @@ const NextStepButtons = ({
     }
     return true
   }
+
   if (loadingCardCredit) {
     return <GenericLoading loadingMessage="Carregando informações do usuário" />
   }

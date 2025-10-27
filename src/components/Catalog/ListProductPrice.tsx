@@ -9,12 +9,12 @@ import { Heart, ShoppingCart, Star, Eye } from 'lucide-react'
 import { useEffect } from 'react'
 import { useProductStore } from '@/store/productStore'
 import useGetAllProductStore from '@/api/service/hooks/products/useGet/useGetAllProductStore'
-import { useCartStoreReview } from '@/store/cartStore'
+import { useCartStore } from '@/store/cartStore'
+import usePostCartProducts from '@/api/service/hooks/cart/post/usePostCartProducts'
 
 const ListProductPrice = () => {
-  const addProduct = useCartStoreReview((state) => state.addProduct)
   const { data, success, message, loading } = useGetAllProductStore()
-
+  const { handleAddProduct } = usePostCartProducts()
   if (!success) {
     return (
       <div className="flex flex-col items-center justify-center h-64 text-red-500">
@@ -25,7 +25,7 @@ const ListProductPrice = () => {
   }
   if (loading) return <GenericLoading />
   const handleAddToCart = (product: IProduct) => {
-    addProduct(product)
+    handleAddProduct(product)
   }
 
   return (

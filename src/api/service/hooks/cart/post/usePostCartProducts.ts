@@ -1,10 +1,10 @@
-import { useCartStoreReview } from '@/store/cartStore'
+import { useCartStore } from '@/store/cartStore'
 import { ShowGenericToast } from '@/components/Generic/Toast'
 import { useCallback } from 'react'
 import { IProduct } from '@/@interface/api/IProduct'
 
 const usePostCartProducts = () => {
-  const { addProduct, loading, success, errors } = useCartStoreReview()
+  const { addProduct, loading, success, errors } = useCartStore()
 
   const handleAddProduct = useCallback(
     async (product: IProduct) => {

@@ -17,36 +17,41 @@ import { CartItemsList } from '@/components/Menu/CartItemsList'
 import { signOut } from 'next-auth/react'
 import useGetAllProductStore from '@/api/service/hooks/products/useGet/useGetAllProductStore'
 import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
+import { usePathname } from 'next/navigation'
 
 const NavBarHeader = () => {
   const { data } = useGetAllCartProducts()
   const quantityItemsInCart = data?.totalQuantity || 0
+  const pathname = usePathname()
+
   return (
     <div className="flex h-16 items-center justify-between px-4 bg-sidebar">
       <div className="flex items-center space-x-2">
-        <Link href="/" className="text-2xl font-bold text-sidebar-foreground">
-          Sua Empresa
+        <Link href="/catalog" className="text-2xl font-bold text-sidebar-foreground">
+          CN Shopping
         </Link>
       </div>
 
       <nav className="hidden md:flex items-center space-x-6">
         <Link
           href="/"
-          className="text-sm font-medium transition-colors hover:text-sidebar-primary"
+          className={
+            pathname === '/catalog'
+              ? 'text-sm font-medium text-primary   rounded transition-colors'
+              : 'text-sm font-medium transition-colors hover:text-sidebar-primary'
+          }
         >
-          Home
+          Início
         </Link>
         <Link
-          href="/produtos"
-          className="text-sm font-medium transition-colors hover:text-sidebar-primary"
+          href="/review-order"
+          className={
+            pathname === '/review-order'
+              ? 'text-sm font-medium text-primary   rounded transition-colors'
+              : 'text-sm font-medium transition-colors hover:text-sidebar-primary'
+          }
         >
-          Produtos
-        </Link>
-        <Link
-          href="/categorias"
-          className="text-sm font-medium transition-colors hover:text-sidebar-primary"
-        >
-          Categorias
+          Visualizar carrinho
         </Link>
       </nav>
 

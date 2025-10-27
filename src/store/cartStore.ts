@@ -1,6 +1,12 @@
 import { create } from 'zustand'
 import { ICart, METHOD_PAYMENT } from '@/@interface/api/ICart'
-import { getCart, setCart, addToCart, removeFromCart } from '@/utils/localStorage/Cart'
+import {
+  getCart,
+  setCart,
+  addToCart,
+  removeFromCart,
+  deleteCart,
+} from '@/utils/localStorage/Cart'
 import { IProduct } from '@/@interface/api/IProduct'
 import { getAllProductCart } from '@/api/service/cart/get/getAllProductCart'
 import { IResponse } from '@/@interface/response/Iresponse'
@@ -28,6 +34,7 @@ interface CartState {
   addProduct: (product: IProduct) => Promise<any>
   removeQuantityProductCart: (product: IProduct) => Promise<any>
   addQuantityProductCart: (product: IProduct) => Promise<any>
+  removeCart: () => Promise<any> // <-- aqui!
 }
 
 const cartInitialValues: IResponse<ICart> = {
@@ -40,7 +47,7 @@ const cartInitialValues: IResponse<ICart> = {
   timestamp: new Date().toISOString(),
 }
 
-export const useCartStoreReview = create<CartState>((set, get) => ({
+export const useCartStore = create<CartState>((set, get) => ({
   data: cartInitialValues.data,
   loading: cartInitialValues.loading,
   success: false,
@@ -153,18 +160,28 @@ export const useCartStoreReview = create<CartState>((set, get) => ({
     try {
       const response = await patchOrderReview(orderReview)
       await get().fetchCart()
-      if (response.success) {
-        set({ loading: false, success: true })
-      } else {
-        set({ loading: false, success: false })
+      const isFailed = response.data?.orderReview === ORDER_REVIEW.FAILED
+      const isSuccess = response.success && !isFailed
+      set({ loading: false, success: isSuccess })
+      return {
+        success: isSuccess,
+        response,
       }
-      return { success: response.success, response }
     } catch (err: any) {
       set({ success: false, loading: false })
       return { success: false, message: err.message, response: null }
     }
   },
+  removeCart: async () => {
+    set({ loading: true, success: false })
+    try {
+      await deleteCart()
+      const emptyCart = getCart()
+      set({ data: emptyCart, loading: false, success: true })
+      return { success: true }
+    } catch (err: any) {
+      set({ loading: false, success: false })
+      return { success: false, message: err.message }
+    }
+  },
 }))
-function fetchCart() {
-  throw new Error('Function not implemented.')
-}

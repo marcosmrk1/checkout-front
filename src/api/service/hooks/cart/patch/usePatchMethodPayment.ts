@@ -1,10 +1,10 @@
 import { METHOD_PAYMENT } from '@/@interface/api/ICart'
 import { ShowGenericToast } from '@/components/Generic/Toast'
-import { useCartStoreReview } from '@/store/cartStore'
+import { useCartStore } from '@/store/cartStore'
 import { useCallback } from 'react'
 
 const usePatchMethodPayment = () => {
-  const { patchMethodPayment, loading, errors, success } = useCartStoreReview()
+  const { patchMethodPayment, loading, errors, success } = useCartStore()
 
   const handleChangeMethodPayment = useCallback(
     async (methodPayment: METHOD_PAYMENT) => {

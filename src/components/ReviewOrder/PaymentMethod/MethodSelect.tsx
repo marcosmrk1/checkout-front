@@ -3,8 +3,7 @@
 import { OrderSummary } from '@/components/ReviewOrder/Cart/OrderSummary'
 import { UserReadingCard } from '@/components/Shared/UserReading'
 import { PaymentMethod } from '@/components/ReviewOrder/PaymentMethod/PaymenteMethod'
-import { usePatchOrderReviewCart } from '@/api/service/hooks/cart/patch/usePatchOrderReview'
-import { METHOD_PAYMENT, ORDER_REVIEW } from '@/@interface/api/ICart'
+import { METHOD_PAYMENT } from '@/@interface/api/ICart'
 import { useState } from 'react'
 import { NextStepButtons } from '@/components/ReviewOrder/NextStepButtons'
 
@@ -22,7 +21,7 @@ const PaymentMethodSelector = () => {
       <div className="col-span-12 lg:col-span-5 flex flex-col gap-4">
         <div className="hidden lg:block h-11" />
         <UserReadingCard />
-        <OrderSummary refresh={0} />
+        <OrderSummary />
         <NextStepButtons methodPayment={methodPayment} />
       </div>
     </div>

@@ -94,9 +94,7 @@
 .dark {
   --checkbox-bg: #fff;
   --checkbox-border: #fff;
-  svg.lucide {
-    color: white;
-  }
+
   /* --background: oklch(29.93% 0.0532 167.199 / 0.315); */
   --background: rgb(16, 15, 15);
   --foreground: oklch(0.98 0.005 180);

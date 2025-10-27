@@ -9,7 +9,7 @@ import { GenericLoading } from '@/components/Generic/Loading'
 import { ICartItem } from '@/@interface/api/ICart'
 import { IProduct } from '@/@interface/api/IProduct'
 import useGetAllCartProducts from '@/api/service/hooks/cart/get/useGetAllCartProducts'
-import { useCartStoreReview } from '@/store/cartStore'
+import { useCartStore } from '@/store/cartStore'
 import usePatchQuantity from '@/api/service/hooks/cart/patch/usePatchQuantity'
 import useDeleteItemCart from '@/api/service/hooks/cart/del/useDeleteItemCart'
 interface product {
@@ -20,13 +20,7 @@ interface product {
   img: string
 }
 
-const OrderReview = ({
-  refresh,
-  setRefresh,
-}: {
-  refresh: number
-  setRefresh: React.Dispatch<React.SetStateAction<number>>
-}) => {
+const OrderReview = ({}: {}) => {
   const { data, loading, errors } = useGetAllCartProducts()
   const { handleAddQuantity, handleRemoveQuantity } = usePatchQuantity()
   const { deleteItemCart } = useDeleteItemCart()
@@ -48,12 +42,10 @@ const OrderReview = ({
   const updateProductQuantity = (productSelect: IProduct, add: boolean) => {
     const action = add ? handleAddQuantity : handleRemoveQuantity
     action(productSelect)
-    setRefresh((prev) => prev + 1)
   }
 
   const handleDeleteProduct = (productSelect: IProduct) => {
     deleteItemCart(productSelect.id)
-    setRefresh((prev) => prev + 1)
   }
 
   return (

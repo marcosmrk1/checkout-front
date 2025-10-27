@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
 import { ShowGenericToast } from '@/components/Generic/Toast'
-import { useCartStoreReview } from '@/store/cartStore'
+import { useCartStore } from '@/store/cartStore'
 
 const useDeleteItemCart = () => {
-  const { deleteItemCart, loading, success } = useCartStoreReview()
+  const { deleteItemCart, loading, success } = useCartStore()
 
   const handleDelete = useCallback(
     async (productId: number) => {

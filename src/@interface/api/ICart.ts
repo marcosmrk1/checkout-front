@@ -4,6 +4,7 @@ export enum ORDER_REVIEW {
   WAIT_CONFIRM = 'waitConfirm',
   CONFIRMED_ORDER = 'confirmedOrder',
   EXPIRED_ORDER = 'expiredOrder',
+  FAILED = 'failed',
 }
 export enum METHOD_PAYMENT {
   CREDIT_CARD = 'creditCard',
@@ -22,6 +23,7 @@ export interface ICart {
     | ORDER_REVIEW.WAIT_CONFIRM
     | ORDER_REVIEW.EXPIRED_ORDER
     | ORDER_REVIEW.CONFIRMED_ORDER
+    | ORDER_REVIEW.FAILED
   metodPayment?:
     | METHOD_PAYMENT.CREDIT_CARD
     | METHOD_PAYMENT.PIX
