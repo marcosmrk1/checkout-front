@@ -7,12 +7,13 @@ const LoginHeader = () => {
     <SessionProvider>
       <div className="min-h-screen flex">
         <div className="hidden lg:flex lg:w-1/2 relative">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: 'url(/image/picture_padlock.png)',
-            }}
-          />
+          <div className="absolute inset-0 bg-cover bg-center">
+            <img
+              src="/images/picture_padlock.png"
+              alt="Cadeado"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <div className="absolute inset-0" />
           <div className="relative z-10 flex flex-col justify-between p-12 text-white">
             <div className="flex items-center space-x-2">

@@ -10,14 +10,14 @@ const users = [
     name: 'Marcos',
     email: 'marcospl.134@gmaill.com',
     password: '1234',
-    image: '/image/peopleMarcos.jpg',
+    image: '/images/peopleMarcos.jpg',
   },
   {
     id: '2',
     name: 'Leandra',
     email: 'Leandra@gmail',
     password: '1234',
-    image: '/image/peopleLeandra.jpg',
+    image: '/images/peopleLeandra.jpg',
   },
 ]
 const authOptions = {

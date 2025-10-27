@@ -110,17 +110,17 @@ const NavBarHeader = () => {
             <DropdownMenuItem asChild></DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="/review-order" className="cursor-pointer">
-                <ShoppingCart className="mr-2 h-4 w-4" />
-                <span>Carrinho</span>
+                <ShoppingCart className="mr-2 h-4 w-4 text-primary" />
+                <span className="text-primary">Carrinho</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              className="text-destructive cursor-pointer"
+              className=" cursor-pointer"
               onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}
             >
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Sair</span>
+              <LogOut className="mr-2 h-4 w-4 text-red-500" />
+              <span className="text-red-500">Sair</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

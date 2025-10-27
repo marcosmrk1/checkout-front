@@ -36,25 +36,6 @@ const ListProductPrice = () => {
             key={product.id}
             className="w-72 rounded-lg p-2 shadow-lg transition-all duration-300 hover:-translate-y-1 bg-card border-2 border-transparent hover:shadow-[0_0_20px_rgba(57,255,20,0.6),0_0_40px_rgba(57,255,20,0.3)]"
           >
-            <div className="flex justify-end items-center mb-2">
-              <div className="flex gap-2">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-8 w-8 rounded-full hover:bg-pink-100 hover:text-pink-500 transition-colors"
-                >
-                  <Eye className="h-4 w-4" />
-                </Button>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-8 w-8 rounded-full hover:bg-pink-100 hover:text-pink-500 transition-colors"
-                >
-                  <Heart className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
             <div className="mb-4 rounded-lg p-4 relative overflow-hidden group">
               <img
                 src={product.image}
